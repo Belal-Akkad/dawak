@@ -4,6 +4,10 @@ abstract final class AppColors {
   AppColors._();
   static const Color primaryBrandWhite = Color(0xffFFFFFF);
   static const Color primaryBrandBlack = Color(0xff000000);
+  
+  static const Color onboardingText = Color(0xff286B70);
+  static const Color onboardingTextMuted = Color(0xff95B4B8);
+  static const Color onboardingIndicatorInactive = Color(0xffFFFFFF);
 
   static const Color primary50 = Color(0xffF2FBFA);
   static const Color primary100 = Color(0xffD1F6F3);

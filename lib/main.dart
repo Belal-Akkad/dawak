@@ -1,11 +1,19 @@
-import 'package:dawak/core/extentions/text_style_extension.dart';
+import 'package:dawak/core/routes/app_router.dart';
+import 'package:dawak/core/routes/app_routes.dart';
 import 'package:dawak/core/theme/app_colors.dart';
 import 'package:dawak/core/theme/typo_graphy/app_typo_graphy.dart';
 import 'package:flutter/material.dart';
-
+import 'package:device_preview/device_preview.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    DevicePreview(
+      enabled: false
+      ,
+      tools: const [...DevicePreview.defaultTools],
+      builder: (context) => const MyApp(),
+    ),
+  ); 
 }
 
 class MyApp extends StatelessWidget {
@@ -15,42 +23,26 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Dawak',
-    
-   
-      home: const Home(),
-    );
-  }
-}
-
-class Home extends StatelessWidget {
-  const Home({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Dawak'),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            Text(
-              'Hello, Dawak!',
-              style: context.cairo(
-                size: 24,
-                weight: AppTypography.medium,
-                color: AppColors.danger100,
-              ),
-            ),
-
-
-             Text(
-              'Hello, Dawak!',
-              style:TextStyle(fontSize: 24)
-            ),
-          ],
+      debugShowCheckedModeBanner: false,
+      locale: const Locale('ar'),
+      theme: ThemeData(
+        textSelectionTheme: TextSelectionThemeData(
+          selectionColor: AppColors.primary500.withOpacity(0.3),
+          selectionHandleColor: AppColors.primary500,
+          cursorColor: AppColors.primary500,
         ),
+        fontFamily: AppTypography.fontFamily,
+        useMaterial3: true,
+        scaffoldBackgroundColor: AppColors.danger500,
       ),
+      initialRoute: AppRoutes.splash,
+      onGenerateRoute: AppRouter.onGenerateRoute,
+      builder: (BuildContext context, Widget? child) {
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: child ?? const SizedBox.shrink(),
+        );
+      },
     );
   }
 }
