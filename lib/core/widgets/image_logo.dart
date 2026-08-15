@@ -3,8 +3,9 @@ import 'package:dawak/core/extentions/responsive_size_extension.dart';
 import 'package:flutter/material.dart';
 
 class ImageLogo extends StatelessWidget {
-  const ImageLogo({super.key});
+  const ImageLogo({super.key, this.width = 150});
 
+  final double width;
   @override
   Widget build(BuildContext context) {
     return Semantics(
@@ -12,7 +13,7 @@ class ImageLogo extends StatelessWidget {
 
       child: Image.asset(
         AppAssets.logoImage,
-        width: 150.rs(context),
+        width: width.rs(context),
         fit: BoxFit.contain,
         filterQuality: FilterQuality.high,
       ),

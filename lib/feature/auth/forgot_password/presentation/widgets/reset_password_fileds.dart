@@ -47,7 +47,7 @@ class ResetPasswordFields extends StatelessWidget {
 
           autovalidateMode: autovalidateMode,
 
-          onFieldSubmitted: (_) {
+          onSubmitted: (_) {
             FocusScope.of(context).requestFocus(confirmPasswordFocusNode);
           },
         ),
@@ -74,7 +74,7 @@ class ResetPasswordFields extends StatelessWidget {
 
           autovalidateMode: autovalidateMode,
 
-          onFieldSubmitted: (_) {
+          onSubmitted: (_) {
             FocusScope.of(context).unfocus();
           },
         ),

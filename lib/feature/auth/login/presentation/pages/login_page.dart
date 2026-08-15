@@ -5,7 +5,7 @@ import 'package:dawak/core/widgets/redirect_text.dart';
 import 'package:dawak/feature/auth/login/presentation/widgets/forgot_password_button.dart';
 import 'package:dawak/feature/auth/login/presentation/widgets/login_form.dart';
 import 'package:dawak/feature/auth/login/presentation/widgets/login_title.dart';
-import 'package:dawak/feature/auth/shared/presentation/widgets/image_logo.dart';
+import 'package:dawak/core/widgets/image_logo.dart';
 import 'package:dawak/feature/auth/shared/presentation/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 

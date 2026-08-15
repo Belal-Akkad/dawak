@@ -35,7 +35,7 @@ class LoginForm extends StatelessWidget {
           validator: Validators.email,
           autovalidateMode: autovalidateMode,
           fieldType: FieldType.email,
-          onFieldSubmitted: onEmailSubmitted,
+          onSubmitted: onEmailSubmitted,
         ),
         SizedBox(height: 18.rs(context)),
         CustomTextField(
@@ -48,7 +48,7 @@ class LoginForm extends StatelessWidget {
           autocorrect: false,
           enableSuggestions: false,
           fieldType: FieldType.password,
-          onFieldSubmitted: onPasswordSubmitted,
+          onSubmitted: onPasswordSubmitted,
         ),
       ],
     );

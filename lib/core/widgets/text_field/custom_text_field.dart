@@ -19,7 +19,7 @@ class CustomTextField extends StatefulWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.onChanged,
-    this.onFieldSubmitted,
+    this.onSubmitted,
     this.enabled = true,
     this.autovalidateMode,
     this.errorText,
@@ -29,40 +29,37 @@ class CustomTextField extends StatefulWidget {
     this.minLines,
     this.contentPadding,
     this.cursorColor,
+    this.border,
+    this.enabledBorder,
+    this.focusedBorder,
+    this.errorBorder,
+    this.focusedErrorBorder,
   });
 
   final FieldType fieldType;
-
   final TextEditingController? controller;
   final FocusNode? focusNode;
-
   final String? hintText;
   final String? label;
-
   final String? Function(String?)? validator;
-
   final Widget? prefixIcon;
   final Widget? suffixIcon;
-
   final ValueChanged<String>? onChanged;
-  final ValueChanged<String>? onFieldSubmitted;
-
+  final ValueChanged<String>? onSubmitted;
   final bool enabled;
-
   final AutovalidateMode? autovalidateMode;
-
   final String? errorText;
-
   final bool autocorrect;
   final bool enableSuggestions;
-
   final int maxLines;
   final int? minLines;
-
   final EdgeInsetsGeometry? contentPadding;
-
   final Color? cursorColor;
-
+  final InputBorder? border;
+  final InputBorder? enabledBorder;
+  final InputBorder? focusedBorder;
+  final InputBorder? errorBorder;
+  final InputBorder? focusedErrorBorder;
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
@@ -114,7 +111,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
   TextDirection _textDirection() {
     switch (widget.fieldType) {
       case FieldType.email:
-      case FieldType.phone:
       case FieldType.activationCode:
         return TextDirection.ltr;
 
@@ -126,7 +122,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
   TextAlign _textAlign() {
     switch (widget.fieldType) {
       case FieldType.email:
-      case FieldType.phone:
       case FieldType.activationCode:
         return TextAlign.left;
 
@@ -156,6 +151,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
       case FieldType.fullName:
         return Validators.fullName;
 
+      case FieldType.search:
+        return Validators.search;
+
       default:
         return null;
     }
@@ -180,7 +178,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
         TextFormField(
           controller: widget.controller,
           focusNode: widget.focusNode,
-
           validator: _validator(),
 
           keyboardType: _keyboardType(),
@@ -196,7 +193,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               : false,
 
           onChanged: widget.onChanged,
-          onFieldSubmitted: widget.onFieldSubmitted,
+          onFieldSubmitted: widget.onSubmitted,
 
           enabled: widget.enabled,
 
@@ -215,7 +212,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
           style: context.cairo(
             size: 16,
             weight: AppTypography.bold,
-            color: AppColors.neutral900,
+            color: widget.enabled
+                ? AppColors.neutral900
+                : Colors.grey.withValues(alpha: 0.8),
           ),
 
           decoration: InputDecoration(
@@ -267,13 +266,21 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
             contentPadding:
                 widget.contentPadding ??
-                EdgeInsets.symmetric(horizontal: 16, vertical: 18.rs(context)),
+                EdgeInsets.symmetric(horizontal: 16, vertical: 16.rs(context)),
 
-            border: _border(AppColors.primaryAssist50),
-            enabledBorder: _border(AppColors.primaryAssist50),
-            focusedBorder: _border(AppColors.primary600),
-            errorBorder: _border(AppColors.danger500),
-            focusedErrorBorder: _border(AppColors.danger500),
+            border: widget.border ?? InputBorder.none,
+
+            enabledBorder: widget.enabledBorder ?? InputBorder.none,
+
+            focusedBorder:
+                widget.focusedBorder ?? _border(AppColors.primary600),
+
+            errorBorder: widget.errorBorder ?? _border(AppColors.danger500),
+
+            focusedErrorBorder:
+                widget.focusedErrorBorder ?? _border(AppColors.danger500),
+
+            disabledBorder: InputBorder.none,
 
             errorStyle: context.cairo(
               size: 12,

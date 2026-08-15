@@ -51,7 +51,7 @@ class SignUpForm extends StatelessWidget {
           hintText: 'أدخل الاسم الثلاثي',
 
           autovalidateMode: autovalidateMode,
-          onFieldSubmitted: onFullNameSubmitted,
+          onSubmitted: onFullNameSubmitted,
         ),
 
         SizedBox(height: 18.rs(context)),
@@ -78,7 +78,7 @@ class SignUpForm extends StatelessWidget {
           hintText: '900-000-000',
 
           autovalidateMode: autovalidateMode,
-          onFieldSubmitted: onPhoneSubmitted,
+          onSubmitted: onPhoneSubmitted,
         ),
 
         SizedBox(height: 18.rs(context)),
@@ -91,7 +91,7 @@ class SignUpForm extends StatelessWidget {
           hintText: 'namee@gmail.com',
           validator: Validators.email,
           autovalidateMode: autovalidateMode,
-          onFieldSubmitted: onEmailSubmitted,
+          onSubmitted: onEmailSubmitted,
         ),
 
         SizedBox(height: 18.rs(context)),

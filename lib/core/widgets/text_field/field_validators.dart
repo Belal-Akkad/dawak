@@ -4,6 +4,7 @@ enum FieldType {
   password,
   confirmPassword,
   phone,
+  search,
   activationCode,
 }
 
@@ -13,9 +14,8 @@ class Validators {
   static final RegExp _emailRegExp = RegExp(
     r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@"
     r"[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?"
-    r"(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$",
+    r"(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$",
   );
-
   static final RegExp _phoneRegExp = RegExp(r'^9\d{8}$');
 
   static final RegExp _fullNameRegExp = RegExp(r'^[\u0600-\u06FFa-zA-Z\s]+$');
@@ -38,6 +38,10 @@ class Validators {
       return 'أدخل بريدًا إلكترونيًا صحيحًا';
     }
 
+    return null;
+  }
+
+  static String? search(String? value) {
     return null;
   }
 

@@ -6,7 +6,11 @@ import 'package:dawak/feature/auth/forgot_password/presentation/pages/verify_res
 import 'package:dawak/feature/auth/login/presentation/pages/login_page.dart';
 import 'package:dawak/feature/auth/signup/presentation/pages/signup_page.dart';
 import 'package:dawak/feature/auth/signup/presentation/pages/verify_account_page.dart';
-import 'package:dawak/feature/home/presentation/pages/home_page.dart';
+import 'package:dawak/feature/home/models/product_model.dart';
+import 'package:dawak/feature/products/data/models/products_model.dart';
+import 'package:dawak/feature/product_details/presentation/pages/product_details_page.dart';
+import 'package:dawak/feature/products/presentation/pages/products_page.dart';
+import 'package:dawak/feature/main/presentation/pages/main_page.dart';
 import 'package:dawak/feature/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:dawak/feature/splash/presentation/pages/splash_page.dart';
 import 'package:flutter/material.dart';
@@ -14,10 +18,9 @@ import 'package:flutter/material.dart';
 abstract final class AppRouter {
   AppRouter._();
 
-  static const Duration _defaultTransitionDuration =
-      Duration(milliseconds: 350);
-
-
+  static const Duration _defaultTransitionDuration = Duration(
+    milliseconds: 350,
+  );
 
   static PageRouteBuilder<T> _fadeRoute<T>({
     required Widget page,
@@ -31,10 +34,7 @@ abstract final class AppRouter {
       pageBuilder: (_, _, _) => page,
       transitionsBuilder: (_, animation, _, child) {
         return FadeTransition(
-          opacity: CurvedAnimation(
-            parent: animation,
-            curve: Curves.easeInOut,
-          ),
+          opacity: CurvedAnimation(parent: animation, curve: Curves.easeInOut),
           child: child,
         );
       },
@@ -42,10 +42,12 @@ abstract final class AppRouter {
   }
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
+    FocusManager.instance.primaryFocus?.unfocus();
     switch (settings.name) {
       case AppRoutes.splash:
         return _fadeRoute<void>(
-          page: const SplashPage(),
+          page: const MainPage(),
+          // page: const SplashPage(),
           settings: settings,
         );
 
@@ -53,15 +55,10 @@ abstract final class AppRouter {
         return _fadeRoute<void>(
           page: const OnboardingPage(),
           settings: settings,
-
         );
 
       case AppRoutes.login:
-        return _fadeRoute<void>(
-          page: const LoginPage(),
-          settings: settings,
-          
-        );
+        return _fadeRoute<void>(page: const LoginPage(), settings: settings);
 
       case AppRoutes.forgotPassword:
         return _fadeRoute<void>(
@@ -88,10 +85,7 @@ abstract final class AppRouter {
         );
 
       case AppRoutes.signup:
-        return _fadeRoute<void>(
-          page: const SignUpPage(),
-          settings: settings,
-        );
+        return _fadeRoute<void>(page: const SignUpPage(), settings: settings);
 
       case AppRoutes.verifyAccount:
         return _fadeRoute<void>(
@@ -100,16 +94,29 @@ abstract final class AppRouter {
         );
 
       case AppRoutes.home:
+        return _fadeRoute<void>(page: const MainPage(), settings: settings);
+
+      case AppRoutes.categoryProducts:
+        final args = settings.arguments as ProductsModel;
+
         return _fadeRoute<void>(
-          page: const HomePage(),
+          page: ProductsPage(
+            categoryName: args.categoryName,
+            products: args.products,
+          ),
+          settings: settings,
+        );
+
+      case AppRoutes.productDetails:
+        final product = settings.arguments as ProductModel;
+
+        return _fadeRoute<void>(
+          page: ProductDetailsPage(product: product),
           settings: settings,
         );
 
       default:
-        return _fadeRoute<void>(
-          page: const SplashPage(),
-          settings: settings,
-        );
+        return _fadeRoute<void>(page: const SplashPage(), settings: settings);
     }
   }
 }

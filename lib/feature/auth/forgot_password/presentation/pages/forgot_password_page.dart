@@ -2,7 +2,7 @@ import 'package:dawak/core/extentions/responsive_size_extension.dart';
 import 'package:dawak/core/routes/app_routes.dart';
 import 'package:dawak/core/theme/app_colors.dart';
 import 'package:dawak/feature/auth/forgot_password/presentation/widgets/forgot_password_card.dart';
-import 'package:dawak/feature/auth/shared/presentation/widgets/image_logo.dart';
+import 'package:dawak/core/widgets/image_logo.dart';
 import 'package:dawak/feature/auth/shared/verify_otp_type.dart';
 import 'package:flutter/material.dart';
 

@@ -74,7 +74,7 @@ class ForgotPasswordCard extends StatelessWidget {
               hintText: 'أدخل بريدك الإلكتروني',
               validator: Validators.email,
               autovalidateMode: autovalidateMode,
-              onFieldSubmitted: (_) => onSubmit(),
+              onSubmitted: (_) => onSubmit(),
             ),
 
             SizedBox(height: 24.rs(context)),

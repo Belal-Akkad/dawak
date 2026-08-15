@@ -1,5 +1,6 @@
-import 'package:dawak/core/extentions/text_style_extension.dart';
-import 'package:dawak/core/routes/app_routes.dart';
+import 'package:dawak/core/theme/app_colors.dart';
+import 'package:dawak/feature/home/presentation/widgets/home_body.dart';
+import 'package:dawak/feature/home/presentation/widgets/home_header.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -7,39 +8,12 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(),
-      backgroundColor: Colors.white,
-      // drawer: Drawer(
-      //   child: SafeArea(
-      //     child: ListView(
-      //       padding: EdgeInsets.zero,
-      //       children: [
-      //         ListTile(
-      //           title: Text(
-      //             'إعادة تعيين كلمة السر',
-      //             style: context.cairo(size: 16),
-      //           ),
-      //           onTap: () {
-      //             Navigator.of(context).pop();
-      //             Navigator.of(context).pushNamed(
-      //               AppRoutes.forgotPassword,
-      //               arguments: true,
-      //             );
-      //           },
-      //         ),
-      //       ],
-      //     ),
-      //   ),
-      // ),
-      body: SafeArea(
-
-        child: Center(
-          child: Text(
-            'Home',
-            style: context.cairo(size: 22)
-          ),
-        ),
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        backgroundColor: AppColors.primaryBrandWhite,
+        body: Column(children: [const HomeHeader(), HomeBody()]),
       ),
     );
   }
