@@ -2,6 +2,7 @@ import 'package:dawak/core/routes/app_router.dart';
 import 'package:dawak/core/routes/app_routes.dart';
 import 'package:dawak/core/theme/app_colors.dart';
 import 'package:dawak/core/theme/typo_graphy/app_typo_graphy.dart';
+import 'package:dawak/feature/order/data/order_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,9 +34,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (_) => CartCubit(),
-        ),
+        BlocProvider(create: (_) => CartCubit()),
+        BlocProvider(create: (_) => OrderCubit()),
       ],
       child: MaterialApp(
         title: 'Dawak',

@@ -41,6 +41,8 @@ dependencies:
   pinput: ^6.0.2
   auto_size_text: ^3.0.0
   smooth_page_indicator: ^2.0.1
+  image_picker: ^1.1.2
+  file_selector: ^1.0.3
 
 dev_dependencies:
   flutter_test:

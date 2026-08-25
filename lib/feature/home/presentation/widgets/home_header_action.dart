@@ -1,5 +1,6 @@
 import 'package:dawak/core/extentions/responsive_size_extension.dart';
 import 'package:dawak/core/extentions/text_style_extension.dart';
+import 'package:dawak/core/routes/app_routes.dart';
 import 'package:dawak/core/theme/typo_graphy/app_typo_graphy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -23,10 +24,10 @@ class HomHeaderAction extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             borderRadius: BorderRadius.circular(100),
-            onTap: () {},
+            onTap: () => Navigator.of(context).pushNamed(AppRoutes.cart),
             child: BlocBuilder<CartCubit, CartState>(
               builder: (context, state) {
-                final count = state.ids.length;
+                final count = state.differentProductsCount;
 
                 return Badge(
                   isLabelVisible: count > 0,

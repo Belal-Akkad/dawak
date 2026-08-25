@@ -34,6 +34,7 @@ class CustomTextField extends StatefulWidget {
     this.focusedBorder,
     this.errorBorder,
     this.focusedErrorBorder,
+    this.fillColor,
   });
 
   final FieldType fieldType;
@@ -60,6 +61,7 @@ class CustomTextField extends StatefulWidget {
   final InputBorder? focusedBorder;
   final InputBorder? errorBorder;
   final InputBorder? focusedErrorBorder;
+  final Color? fillColor;
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
@@ -154,6 +156,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
       case FieldType.search:
         return Validators.search;
 
+      case FieldType.location:
+        return Validators.location;
+
       default:
         return null;
     }
@@ -233,7 +238,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             errorText: widget.errorText,
 
             filled: true,
-            fillColor: AppColors.primaryAssist100,
+        fillColor: widget.fillColor ?? AppColors.primaryAssist100,
 
             prefixIcon: widget.prefixIcon,
             suffixIconConstraints: BoxConstraints(

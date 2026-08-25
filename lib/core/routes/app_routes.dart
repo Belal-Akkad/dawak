@@ -11,6 +11,9 @@ abstract final class AppRoutes {
   static const String resetPassword = '/reset-password';
   static const String resetPasswordSuccess = '/reset-password-success';
   static const String home = '/home';
+  static const String cart = '/cart';
+  static const String cartConfirmation = '/cart-confirmation';
   static const String categoryProducts = '/category-products';
   static const String productDetails = '/product-details';
+  static const String orderDetails = '/order-details';
 }

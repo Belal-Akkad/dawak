@@ -6,12 +6,16 @@ import 'package:dawak/feature/auth/forgot_password/presentation/pages/verify_res
 import 'package:dawak/feature/auth/login/presentation/pages/login_page.dart';
 import 'package:dawak/feature/auth/signup/presentation/pages/signup_page.dart';
 import 'package:dawak/feature/auth/signup/presentation/pages/verify_account_page.dart';
+import 'package:dawak/feature/cart/presentation/pages/cart_page.dart';
 import 'package:dawak/feature/home/models/product_model.dart';
+import 'package:dawak/feature/cart/presentation/pages/order_confirmation_page.dart';
 import 'package:dawak/feature/products/data/models/products_model.dart';
 import 'package:dawak/feature/product_details/presentation/pages/product_details_page.dart';
 import 'package:dawak/feature/products/presentation/pages/products_page.dart';
 import 'package:dawak/feature/main/presentation/pages/main_page.dart';
 import 'package:dawak/feature/onboarding/presentation/pages/onboarding_page.dart';
+import 'package:dawak/feature/order/data/order_cubit.dart';
+import 'package:dawak/feature/order/presentation/pages/order_details_page.dart';
 import 'package:dawak/feature/splash/presentation/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 
@@ -46,8 +50,8 @@ abstract final class AppRouter {
     switch (settings.name) {
       case AppRoutes.splash:
         return _fadeRoute<void>(
-          page: const MainPage(),
-          // page: const SplashPage(),
+          // page: const MainPage(),
+          page: const SplashPage(),
           settings: settings,
         );
 
@@ -94,7 +98,21 @@ abstract final class AppRouter {
         );
 
       case AppRoutes.home:
-        return _fadeRoute<void>(page: const MainPage(), settings: settings);
+        final initialIndex = settings.arguments as int? ?? 0;
+
+        return _fadeRoute<void>(
+          page: MainPage(initialIndex: initialIndex),
+          settings: settings,
+        );
+
+      case AppRoutes.cart:
+        return _fadeRoute<void>(page: const CartPage(), settings: settings);
+
+      case AppRoutes.cartConfirmation:
+        return _fadeRoute<void>(
+          page: const OrderConfirmationPage(),
+          settings: settings,
+        );
 
       case AppRoutes.categoryProducts:
         final args = settings.arguments as ProductsModel;
@@ -112,6 +130,14 @@ abstract final class AppRouter {
 
         return _fadeRoute<void>(
           page: ProductDetailsPage(product: product),
+          settings: settings,
+        );
+
+      case AppRoutes.orderDetails:
+        final order = settings.arguments as OrderModel;
+
+        return _fadeRoute<void>(
+          page: OrderDetailsPage(order: order),
           settings: settings,
         );
 

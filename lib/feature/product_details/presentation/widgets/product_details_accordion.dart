@@ -56,7 +56,7 @@ class _ProductDetailsAccordionState extends State<ProductDetailsAccordion>
         decoration: BoxDecoration(
           color: AppColors.primaryBrandWhite,
           borderRadius: BorderRadius.circular(12.rs(context)),
-          border: Border.all(color: const Color(0xffD9F6F8), width: 1),
+       
         ),
         child: Column(
           children: [

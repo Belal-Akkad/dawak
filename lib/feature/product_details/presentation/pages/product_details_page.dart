@@ -27,7 +27,7 @@ class ProductDetailsPage extends StatelessWidget {
             ProductDetailsBody(product: product),
 
             ProductDetailsFooter(product: product),
-            SizedBox(height: 24.rs(context)),
+            SizedBox(height: 12.rs(context)),
           ],
         ),
       ),

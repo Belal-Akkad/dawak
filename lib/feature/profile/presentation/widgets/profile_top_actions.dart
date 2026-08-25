@@ -28,10 +28,10 @@ class ProfileTopActions extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-
           if (!isEditing)
             CustomButton(
-              color: AppColors.primaryAssist200,
+              borderColor: AppColors.primary600,
+              color: AppColors.primaryAssist50,
               borderRadius: 16.rs(context),
               onPressed: onEditPressed,
               child: Padding(
@@ -89,9 +89,9 @@ class ProfileTopActions extends StatelessWidget {
                               BlendMode.srcIn,
                             ),
                           ),
-              
+
                           SizedBox(width: 8.rs(context)),
-              
+
                           Text(
                             'تجاهل',
                             style: context.cairo(
@@ -105,7 +105,8 @@ class ProfileTopActions extends StatelessWidget {
                     ),
                   ),
                   CustomButton(
-                    color: AppColors.primaryAssist200,
+                    borderColor: AppColors.primary600,
+                    color: AppColors.primaryAssist50,
                     borderRadius: 16.rs(context),
                     onPressed: onSavePressed,
                     child: Padding(
@@ -123,7 +124,7 @@ class ProfileTopActions extends StatelessWidget {
                               color: AppColors.primary600, // #1B656A,
                             ),
                           ),
-              
+
                           SizedBox(width: 8.rs(context)),
                           SvgPicture.asset(
                             AppAssets.check,

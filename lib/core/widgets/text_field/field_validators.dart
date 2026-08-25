@@ -6,6 +6,7 @@ enum FieldType {
   phone,
   search,
   activationCode,
+  location,
 }
 
 class Validators {
@@ -16,9 +17,11 @@ class Validators {
     r"[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?"
     r"(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$",
   );
+
   static final RegExp _phoneRegExp = RegExp(r'^9\d{8}$');
 
-  static final RegExp _fullNameRegExp = RegExp(r'^[\u0600-\u06FFa-zA-Z\s]+$');
+  static final RegExp _fullNameRegExp =
+      RegExp(r'^[\u0600-\u06FFa-zA-Z\s]+$');
 
   static String? requiredField(String? value, {required String fieldName}) {
     if ((value ?? '').trim().isEmpty) {
@@ -44,6 +47,20 @@ class Validators {
   static String? search(String? value) {
     return null;
   }
+
+static String? location(String? value) {
+  final location = value?.trim() ?? '';
+
+  if (location.isEmpty) {
+    return 'الموقع مطلوب';
+  }
+
+  if (location.length < 3) {
+    return 'يرجى إدخال موقع صحيح';
+  }
+
+  return null;
+}
 
   static String? password(String? value, {int minLength = 8}) {
     final String trimmedValue = (value ?? '').trim();

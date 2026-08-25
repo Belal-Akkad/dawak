@@ -9,12 +9,16 @@ import 'package:dawak/feature/order/presentation/pages/orders_page.dart';
 import 'package:dawak/feature/profile/presentation/pages/profile_page.dart';
 
 class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+  final int initialIndex;
+
+  const MainPage({super.key, this.initialIndex = 0});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => BottomNavCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => BottomNavCubit(initialIndex)),
+      ],
       child: const MainShell(),
     );
   }
