@@ -5,6 +5,7 @@ import 'package:dawak/core/services/onboarding_storage.dart';
 import 'package:dawak/feature/splash/presentation/widgets/splash_logo.dart';
 import 'package:flutter/material.dart';
 
+
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 

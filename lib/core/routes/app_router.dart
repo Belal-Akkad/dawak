@@ -1,11 +1,6 @@
 import 'package:dawak/core/routes/app_routes.dart';
-import 'package:dawak/feature/auth/forgot_password/presentation/pages/forgot_password_page.dart';
-import 'package:dawak/feature/auth/forgot_password/presentation/pages/reset_password_page.dart';
-import 'package:dawak/feature/auth/forgot_password/presentation/pages/reset_password_success_page.dart';
-import 'package:dawak/feature/auth/forgot_password/presentation/pages/verify_reset_code_page.dart';
 import 'package:dawak/feature/auth/login/presentation/pages/login_page.dart';
 import 'package:dawak/feature/auth/signup/presentation/pages/signup_page.dart';
-import 'package:dawak/feature/auth/signup/presentation/pages/verify_account_page.dart';
 import 'package:dawak/feature/cart/presentation/pages/cart_page.dart';
 import 'package:dawak/feature/home/models/product_model.dart';
 import 'package:dawak/feature/cart/presentation/pages/order_confirmation_page.dart';
@@ -50,7 +45,6 @@ abstract final class AppRouter {
     switch (settings.name) {
       case AppRoutes.splash:
         return _fadeRoute<void>(
-          // page: const MainPage(),
           page: const SplashPage(),
           settings: settings,
         );
@@ -64,38 +58,8 @@ abstract final class AppRouter {
       case AppRoutes.login:
         return _fadeRoute<void>(page: const LoginPage(), settings: settings);
 
-      case AppRoutes.forgotPassword:
-        return _fadeRoute<void>(
-          page: const ForgotPasswordPage(),
-          settings: settings,
-        );
-
-      case AppRoutes.verifyResetCode:
-        return _fadeRoute<void>(
-          page: const VerifyResetCodePage(),
-          settings: settings,
-        );
-
-      case AppRoutes.resetPassword:
-        return _fadeRoute<void>(
-          page: const ResetPasswordPage(),
-          settings: settings,
-        );
-
-      case AppRoutes.resetPasswordSuccess:
-        return _fadeRoute<void>(
-          page: const ResetPasswordSuccessPage(),
-          settings: settings,
-        );
-
       case AppRoutes.signup:
         return _fadeRoute<void>(page: const SignUpPage(), settings: settings);
-
-      case AppRoutes.verifyAccount:
-        return _fadeRoute<void>(
-          page: const VerifyAccountPage(),
-          settings: settings,
-        );
 
       case AppRoutes.home:
         final initialIndex = settings.arguments as int? ?? 0;

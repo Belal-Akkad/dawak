@@ -2,7 +2,6 @@ import 'package:dawak/core/extentions/responsive_size_extension.dart';
 import 'package:dawak/core/routes/app_routes.dart';
 import 'package:dawak/core/theme/app_colors.dart';
 import 'package:dawak/core/widgets/redirect_text.dart';
-import 'package:dawak/feature/auth/login/presentation/widgets/forgot_password_button.dart';
 import 'package:dawak/feature/auth/login/presentation/widgets/login_form.dart';
 import 'package:dawak/feature/auth/login/presentation/widgets/login_title.dart';
 import 'package:dawak/core/widgets/image_logo.dart';
@@ -101,15 +100,11 @@ class _LoginPageState extends State<LoginPage> {
                     onPasswordSubmitted: _handlePasswordSubmitted,
                   ),
 
-                  SizedBox(height: 12.rs(context)),
-
-                  const ForgotPasswordButton(),
-
-                  SizedBox(height: 48.rs(context)),
+                  SizedBox(height: 32.rs(context)),
 
                   AuthButton(label: 'تسجيل دخول', onPressed: _submit),
 
-                  SizedBox(height: 24.rs(context)),
+                  SizedBox(height: 12.rs(context)),
 
                   RedirectText(
                     prefixText: 'ليس لديك حساب؟ ',

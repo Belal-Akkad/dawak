@@ -5,8 +5,8 @@ import 'package:dawak/core/theme/app_colors.dart';
 import 'package:dawak/core/theme/typo_graphy/app_typo_graphy.dart';
 import 'package:dawak/core/widgets/redirect_text.dart';
 import 'package:dawak/feature/auth/shared/presentation/widgets/auth_button.dart';
+import 'package:dawak/feature/auth/signup/presentation/widgets/register_success_dialog.dart';
 import 'package:dawak/feature/auth/signup/presentation/widgets/sign_up_form.dart';
-import 'package:dawak/feature/auth/shared/verify_otp_type.dart';
 import 'package:flutter/material.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -65,9 +65,19 @@ class _SignUpPageState extends State<SignUpPage> {
     debugPrint('Email: ${_emailController.text.trim()}');
     debugPrint('Password: ${_passwordController.text}');
 
-    Navigator.of(context).pushNamed(
-      AppRoutes.verifyAccount,
-      arguments: VerifyOtpType.register,
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => RegisterSuccessDialog(
+        onPressed: () {
+          final navigator = Navigator.of(context, rootNavigator: true);
+          navigator.pop();
+          navigator.pushNamedAndRemoveUntil(
+            AppRoutes.home,
+            (Route<dynamic> route) => false,
+          );
+        },
+      ),
     );
   }
 

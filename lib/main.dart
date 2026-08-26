@@ -1,7 +1,5 @@
 import 'package:dawak/core/routes/app_router.dart';
 import 'package:dawak/core/routes/app_routes.dart';
-import 'package:dawak/core/theme/app_colors.dart';
-import 'package:dawak/core/theme/typo_graphy/app_typo_graphy.dart';
 import 'package:dawak/feature/order/data/order_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,16 +10,12 @@ import 'package:device_preview/device_preview.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   runApp(
     DevicePreview(
       enabled: true,
-      tools: const [
-        ...DevicePreview.defaultTools,
-      ],
+      tools: const [...DevicePreview.defaultTools],
       builder: (context) => const MyApp(),
     ),
   );
@@ -43,19 +37,6 @@ class MyApp extends StatelessWidget {
 
         locale: const Locale('ar'),
 
-        theme: ThemeData(
-          textSelectionTheme: TextSelectionThemeData(
-            selectionColor: AppColors.primary500.withValues(
-              alpha: 0.3,
-            ),
-            selectionHandleColor: AppColors.primary500,
-            cursorColor: AppColors.primary500,
-          ),
-          fontFamily: AppTypography.fontFamily,
-          useMaterial3: true,
-          scaffoldBackgroundColor: AppColors.danger500,
-        ),
-
         initialRoute: AppRoutes.splash,
         onGenerateRoute: AppRouter.onGenerateRoute,
 
@@ -63,9 +44,7 @@ class MyApp extends StatelessWidget {
           final mediaQuery = MediaQuery.of(context);
 
           return MediaQuery(
-            data: mediaQuery.copyWith(
-              textScaler: const TextScaler.linear(1.0),
-            ),
+            data: mediaQuery.copyWith(textScaler: const TextScaler.linear(1.0)),
             child: Directionality(
               textDirection: TextDirection.rtl,
               child: child ?? const SizedBox.shrink(),
