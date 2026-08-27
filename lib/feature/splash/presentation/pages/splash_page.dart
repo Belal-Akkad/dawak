@@ -2,6 +2,8 @@ import 'package:dawak/core/constants/app_assets.dart';
 import 'package:dawak/core/functions/pre_load_assets_images.dart';
 import 'package:dawak/core/routes/app_routes.dart';
 import 'package:dawak/core/services/onboarding_storage.dart';
+import 'package:dawak/core/services/secure_storage_service.dart';
+import 'package:dawak/core/services/service_locator.dart';
 import 'package:dawak/feature/splash/presentation/widgets/splash_logo.dart';
 import 'package:flutter/material.dart';
 
@@ -29,13 +31,25 @@ class _SplashPageState extends State<SplashPage> {
 
   Future<void> _bootstrap() async {
     await Future<void>.delayed(const Duration(milliseconds: 2200));
-    final bool completed = await OnboardingStorage.isCompleted();
+
+    final bool onboardingCompleted = await OnboardingStorage.isCompleted();
+    final String? accessToken = await sl<SecureStorageService>().getAccessToken();
+
     if (!mounted) {
       return;
     }
-    Navigator.of(
-      context,
-    ).pushReplacementNamed(completed ? AppRoutes.login : AppRoutes.onboarding);
+
+    if (!onboardingCompleted) {
+      Navigator.of(context).pushReplacementNamed(AppRoutes.onboarding);
+      return;
+    }
+
+    if (accessToken != null && accessToken.isNotEmpty) {
+      Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+      return;
+    }
+
+    Navigator.of(context).pushReplacementNamed(AppRoutes.login);
   }
 
   @override

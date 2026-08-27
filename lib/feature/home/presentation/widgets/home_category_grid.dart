@@ -1,3 +1,4 @@
+import 'package:dawak/core/constants/app_assets.dart';
 import 'package:dawak/core/extentions/responsive_size_extension.dart';
 import 'package:dawak/core/extentions/text_style_extension.dart';
 import 'package:dawak/core/theme/typo_graphy/app_typo_graphy.dart';
@@ -63,15 +64,15 @@ class HomeCategoryGrid extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          SvgPicture.asset(
-                            cat.icon,
-                            width: 24.rs(context),
-                            colorFilter: ColorFilter.mode(
-                              AppColors.primary900,
-                              BlendMode.srcIn,
-                            ),
-                          ),
-                          SizedBox(height: 16.rs(context)),
+                          // SvgPicture.asset(
+                          //   AppAssets.pill,
+                          //   width: 24.rs(context),
+                          //   colorFilter: ColorFilter.mode(
+                          //     AppColors.primary900,
+                          //     BlendMode.srcIn,
+                          //   ),
+                          // ),
+                          // SizedBox(height: 16.rs(context)),
                           Text(
                             textAlign: TextAlign.center,
                             maxLines: 2,

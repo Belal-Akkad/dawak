@@ -1,79 +1,51 @@
-import 'package:dawak/feature/profile/presentation/widgets/profile_body.dart';
-import 'package:dawak/feature/profile/presentation/widgets/profile_top_actions.dart';
-import 'package:flutter/material.dart';
 import 'package:dawak/core/extentions/responsive_size_extension.dart';
-import 'package:dawak/feature/profile/presentation/widgets/profile_header.dart';
-import 'package:dawak/feature/profile/presentation/widgets/profile_confirmation_dialog.dart';
+import 'package:dawak/core/handler/hide_over_lay_loading_indicator.dart';
+import 'package:dawak/core/handler/over_lay_loading_indicator.dart';
+import 'package:dawak/core/handler/show_error_snack_bar.dart';
+import 'package:dawak/core/manager/bottom_nav_cubit/bottom_nav_cubit.dart';
+import 'package:dawak/core/routes/app_routes.dart';
+import 'package:dawak/core/services/service_locator.dart';
 
-class ProfilePage extends StatefulWidget {
+import 'package:dawak/feature/profile/presentation/manager/change_profile_mode_cubit/change_profile_mode_cubit.dart';
+import 'package:dawak/feature/profile/presentation/manager/delete_account_cubit/delete_account_cubit.dart';
+import 'package:dawak/feature/profile/presentation/manager/get_profile_cubit/get_profile_cubit.dart';
+import 'package:dawak/feature/profile/presentation/manager/logout_cubit/logout_cubit.dart';
+import 'package:dawak/feature/profile/presentation/manager/update_profile_cubit/update_profile_cubit.dart';
+import 'package:dawak/feature/profile/presentation/manager/update_profile_cubit/update_profile_state.dart';
+
+import 'package:dawak/feature/profile/presentation/widgets/profile_body_builder.dart';
+import 'package:dawak/feature/profile/presentation/widgets/profile_confirmation_dialog.dart';
+import 'package:dawak/feature/profile/presentation/widgets/profile_header.dart';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => sl<GetProfileCubit>()..getProfile()),
+
+        BlocProvider(create: (_) => sl<UpdateProfileCubit>()),
+
+        BlocProvider(create: (_) => ChangeProfileModeCubit()),
+
+        BlocProvider(create: (_) => sl<LogoutCubit>()),
+
+        BlocProvider(create: (_) => sl<DeleteAccountCubit>()),
+      ],
+      child: const _ProfileView(),
+    );
+  }
 }
 
-class _ProfilePageState extends State<ProfilePage> {
-  late TextEditingController _nameController;
-  late TextEditingController _phoneController;
-  late TextEditingController _emailController;
+class _ProfileView extends StatelessWidget {
+  const _ProfileView();
 
-  String _currentName = 'محمد أحمد النجار';
-  String _currentPhone = '900-000-000';
-  String _currentEmail = 'namee@gmail.com';
-
-  String _originalName = 'محمد أحمد النجار';
-  String _originalPhone = '900-000-000';
-
-  bool _isEditing = false;
-  bool _isDeleteDialogOpen = false;
-  bool _isLogoutDialogOpen = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _nameController = TextEditingController(text: _currentName);
-    _phoneController = TextEditingController(text: _currentPhone);
-    _emailController = TextEditingController(text: _currentEmail);
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _phoneController.dispose();
-    _emailController.dispose();
-    super.dispose();
-  }
-
-  void _enterEditMode() {
-    setState(() {
-      _isEditing = true;
-      _originalName = _currentName;
-      _originalPhone = _currentPhone;
-    });
-  }
-
-  void _saveChanges() {
-    setState(() {
-      _currentName = _nameController.text;
-      _currentPhone = _phoneController.text;
-      _isEditing = false;
-    });
-  }
-
-  void _cancelChanges() {
-    setState(() {
-      _nameController.text = _originalName;
-      _phoneController.text = _originalPhone;
-      _currentName = _originalName;
-      _currentPhone = _originalPhone;
-      _isEditing = false;
-    });
-  }
-
-  void _showDeleteDialog() {
-    setState(() {
-      _isDeleteDialogOpen = true;
-    });
+  void _showDeleteDialog(BuildContext context) {
     showDialog<void>(
       context: context,
       barrierDismissible: true,
@@ -85,26 +57,16 @@ class _ProfilePageState extends State<ProfilePage> {
           cancelLabel: 'تجاهل',
           isWarning: true,
           onConfirm: () {
-            // Handle delete confirmation
-            setState(() {
-              _isDeleteDialogOpen = false;
-            });
+            Navigator.of(dialogContext).pop();
+
+            context.read<DeleteAccountCubit>().deleteAccount();
           },
         );
       },
-    ).then((_) {
-      if (mounted) {
-        setState(() {
-          _isDeleteDialogOpen = false;
-        });
-      }
-    });
+    );
   }
 
-  void _showLogoutDialog() {
-    setState(() {
-      _isLogoutDialogOpen = true;
-    });
+  void _showLogoutDialog(BuildContext context) {
     showDialog<void>(
       context: context,
       barrierDismissible: true,
@@ -116,56 +78,127 @@ class _ProfilePageState extends State<ProfilePage> {
           cancelLabel: 'تجاهل',
           isWarning: false,
           onConfirm: () {
-            // Handle logout confirmation
-            setState(() {
-              _isLogoutDialogOpen = false;
-            });
+            Navigator.of(dialogContext).pop();
+
+            context.read<LogoutCubit>().logout();
           },
         );
       },
-    ).then((_) {
-      if (mounted) {
-        setState(() {
-          _isLogoutDialogOpen = false;
-        });
-      }
-    });
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ProfileHeader(isEditing: _isEditing),
-          SizedBox(height: 16.rs(context)),
-          ProfileTopActions(
-            isEditing: _isEditing,
-            onEditPressed: _enterEditMode,
-            onSavePressed: _saveChanges,
-            onCancelPressed: _cancelChanges,
-          ),
-      
-          SizedBox(height: 16.rs(context)),
-      
-        
-          Expanded(
-            child: ProfileBody(
-              nameController: _nameController,
-              phoneController: _phoneController,
-              emailController: _emailController,
-              isEditing: _isEditing,
-              isDeleteDialogOpen: _isDeleteDialogOpen,
-              isLogoutDialogOpen: _isLogoutDialogOpen,
-              onDeletePressed: _showDeleteDialog,
-              onLogoutPressed: _showLogoutDialog,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<DeleteAccountCubit, DeleteAccountState>(
+          listener: (context, state) {
+            if (state is DeleteAccountLoading) {
+              overLayLoadingIndicator(context: context);
+            }
+
+            if (state is DeleteAccountSuccess) {
+              hideOverLayLoadingIndicator(context);
+
+              Navigator.of(
+                context,
+              ).pushNamedAndRemoveUntil(AppRoutes.login, (route) => false);
+            }
+
+            if (state is DeleteAccountFailure) {
+              hideOverLayLoadingIndicator(context);
+
+              showErrorSnackBar(context, state.message);
+            }
+          },
+        ),
+
+        BlocListener<LogoutCubit, LogoutState>(
+          listener: (context, state) {
+            if (state is LogoutLoading) {
+              overLayLoadingIndicator(context: context);
+            }
+
+            if (state is LogoutSuccess) {
+              hideOverLayLoadingIndicator(context);
+
+              Navigator.of(
+                context,
+              ).pushNamedAndRemoveUntil(AppRoutes.login, (route) => false);
+            }
+
+            if (state is LogoutFailure) {
+              hideOverLayLoadingIndicator(context);
+
+              showErrorSnackBar(context, state.message);
+            }
+          },
+        ),
+
+        BlocListener<BottomNavCubit, int>(
+          listener: (context, index) {
+            if (index != 3) {
+              context.read<ChangeProfileModeCubit>().exitEditMode();
+            }
+          },
+        ),
+
+        BlocListener<UpdateProfileCubit, UpdateProfileState>(
+          listener: (context, state) {
+            if (state is UpdateProfileLoading) {
+              overLayLoadingIndicator(context: context);
+            }
+
+            if (state is UpdateProfileSuccess) {
+              hideOverLayLoadingIndicator(context);
+
+              context.read<GetProfileCubit>().updateProfileState(state.profile);
+
+              context.read<ChangeProfileModeCubit>().exitEditMode();
+            }
+
+            if (state is UpdateProfileFailure) {
+              hideOverLayLoadingIndicator(context);
+
+              showErrorSnackBar(context, state.message);
+            }
+          },
+        ),
+      ],
+
+      child: BlocBuilder<ChangeProfileModeCubit, bool>(
+        builder: (context, isEditing) {
+          return GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Header
+                ProfileHeader(isEditing: isEditing),
+
+                SizedBox(height: 16.rs(context)),
+
+                // Body
+                Expanded(
+                  child: ProfileBodyBuilder(
+                    onDeletePressed: () {
+                      _showDeleteDialog(context);
+                    },
+                    onLogoutPressed: () {
+                      _showLogoutDialog(context);
+                    },
+                    isEditing: isEditing,
+                  ),
+                ),
+
+                SizedBox(height: 24.rs(context)),
+              ],
             ),
-          ),
-          SizedBox(height: 24.rs(context)),
-        ],
+          );
+        },
       ),
     );
   }

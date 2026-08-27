@@ -1,6 +1,6 @@
 import 'package:dawak/core/extentions/responsive_size_extension.dart';
-import 'package:dawak/feature/profile/presentation/widgets/profile_contact_fields.dart';
 import 'package:dawak/feature/profile/presentation/widgets/profile_account_section.dart';
+import 'package:dawak/feature/profile/presentation/widgets/profile_contact_fields.dart';
 import 'package:flutter/material.dart';
 
 class ProfileBody extends StatelessWidget {
@@ -10,8 +10,7 @@ class ProfileBody extends StatelessWidget {
     required this.phoneController,
     required this.emailController,
     required this.isEditing,
-    required this.isDeleteDialogOpen,
-    required this.isLogoutDialogOpen,
+    required this.autovalidateMode,
     required this.onDeletePressed,
     required this.onLogoutPressed,
   });
@@ -21,8 +20,7 @@ class ProfileBody extends StatelessWidget {
   final TextEditingController emailController;
 
   final bool isEditing;
-  final bool isDeleteDialogOpen;
-  final bool isLogoutDialogOpen;
+  final AutovalidateMode autovalidateMode;
 
   final VoidCallback onDeletePressed;
   final VoidCallback onLogoutPressed;
@@ -39,17 +37,17 @@ class ProfileBody extends StatelessWidget {
             phoneController: phoneController,
             emailController: emailController,
             isEditing: isEditing,
+            autovalidateMode: autovalidateMode,
           ),
 
-          SizedBox(height: 16.rs(context)),
+          SizedBox(
+            height: 16.rs(context),
+          ),
 
           ProfileAccountSection(
             onDeletePressed: onDeletePressed,
             onLogoutPressed: onLogoutPressed,
-            isDeleteDialogOpen: isDeleteDialogOpen,
-            isLogoutDialogOpen: isLogoutDialogOpen,
           ),
-
         ],
       ),
     );

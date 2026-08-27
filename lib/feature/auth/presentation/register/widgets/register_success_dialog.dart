@@ -3,7 +3,7 @@ import 'package:dawak/core/extentions/responsive_size_extension.dart';
 import 'package:dawak/core/extentions/text_style_extension.dart';
 import 'package:dawak/core/theme/app_colors.dart';
 import 'package:dawak/core/theme/typo_graphy/app_typo_graphy.dart';
-import 'package:dawak/feature/auth/shared/presentation/widgets/auth_button.dart';
+import 'package:dawak/feature/auth/presentation/shared/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

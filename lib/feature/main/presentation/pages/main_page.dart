@@ -16,9 +16,7 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => BottomNavCubit(initialIndex)),
-      ],
+      providers: [BlocProvider(create: (_) => BottomNavCubit(initialIndex))],
       child: const MainShell(),
     );
   }

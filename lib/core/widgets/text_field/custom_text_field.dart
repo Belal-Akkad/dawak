@@ -180,117 +180,126 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
           SizedBox(height: 4.rs(context)),
         ],
-        TextFormField(
-          controller: widget.controller,
-          focusNode: widget.focusNode,
-          validator: _validator(),
-
-          keyboardType: _keyboardType(),
-
-          textInputAction: widget.fieldType == FieldType.password
-              ? TextInputAction.done
-              : TextInputAction.next,
-
-          obscureText:
-              widget.fieldType == FieldType.password ||
-                  widget.fieldType == FieldType.confirmPassword
-              ? _obscureText
-              : false,
-
-          onChanged: widget.onChanged,
-          onFieldSubmitted: widget.onSubmitted,
-
-          enabled: widget.enabled,
-
-          autovalidateMode: widget.autovalidateMode,
-
-          autocorrect: widget.autocorrect,
-          enableSuggestions: widget.enableSuggestions,
-
-          textAlign: _textAlign(),
-          textDirection: _textDirection(),
-          maxLines: widget.maxLines,
-          minLines: widget.minLines,
-
-          cursorColor: widget.cursorColor ?? AppColors.primary500,
-
-          style: context.cairo(
-            size: 16,
-            weight: AppTypography.bold,
-            color: widget.enabled
-                ? AppColors.neutral900
-                : Colors.grey.withValues(alpha: 0.8),
+        TextSelectionTheme(
+          data: TextSelectionThemeData(
+            selectionColor: AppColors.primary500.withValues(alpha: 0.3),
+            selectionHandleColor: AppColors.primary500,
+            cursorColor: AppColors.primary500,
           ),
+          child: TextFormField(
+            controller: widget.controller,
+            focusNode: widget.focusNode,
+            validator: _validator(),
+            keyboardType: _keyboardType(),
 
-          decoration: InputDecoration(
-            hint: Align(
-              alignment: Alignment.centerRight,
-              child: Text(
-                widget.hintText ?? '',
-                textAlign: _hintTextDirection(),
-                style: context.cairo(
-                  size: 16,
-                  weight: AppTypography.regular,
-                  color: AppColors.primaryAssist600,
-                ),
-              ),
-            ),
-            errorText: widget.errorText,
+            textInputAction: widget.fieldType == FieldType.password
+                ? TextInputAction.done
+                : TextInputAction.next,
 
-            filled: true,
-        fillColor: widget.fillColor ?? AppColors.primaryAssist100,
-
-            prefixIcon: widget.prefixIcon,
-            suffixIconConstraints: BoxConstraints(
-              minWidth: 16.rs(context),
-              minHeight: 16.rs(context),
-            ),
-            suffixIcon:
+            obscureText:
                 widget.fieldType == FieldType.password ||
                     widget.fieldType == FieldType.confirmPassword
-                ? GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _obscureText = !_obscureText;
-                      });
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 16.rs(context)),
-                      child: SvgPicture.asset(
-                        fit: BoxFit.fill,
-                        _obscureText ? AppAssets.hide : AppAssets.show,
+                ? _obscureText
+                : false,
 
-                        colorFilter: const ColorFilter.mode(
-                          AppColors.neutral900,
-                          BlendMode.srcIn,
+            onChanged: widget.onChanged,
+            onFieldSubmitted: widget.onSubmitted,
+
+            enabled: widget.enabled,
+
+            autovalidateMode: widget.autovalidateMode,
+
+            autocorrect: widget.autocorrect,
+            enableSuggestions: widget.enableSuggestions,
+
+            textAlign: _textAlign(),
+            textDirection: _textDirection(),
+            maxLines: widget.maxLines,
+            minLines: widget.minLines,
+
+            cursorColor: widget.cursorColor ?? AppColors.primary500,
+
+            style: context.cairo(
+              size: 16,
+              weight: AppTypography.bold,
+              color: widget.enabled
+                  ? AppColors.neutral900
+                  : Colors.grey.withValues(alpha: 0.8),
+            ),
+
+            decoration: InputDecoration(
+              hint: Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  widget.hintText ?? '',
+                  textAlign: _hintTextDirection(),
+                  style: context.cairo(
+                    size: 16,
+                    weight: AppTypography.regular,
+                    color: AppColors.primaryAssist600,
+                  ),
+                ),
+              ),
+              errorText: widget.errorText,
+
+              filled: true,
+              fillColor: widget.fillColor ?? AppColors.primaryAssist100,
+
+              prefixIcon: widget.prefixIcon,
+              suffixIconConstraints: BoxConstraints(
+                minWidth: 16.rs(context),
+                minHeight: 16.rs(context),
+              ),
+              suffixIcon:
+                  widget.fieldType == FieldType.password ||
+                      widget.fieldType == FieldType.confirmPassword
+                  ? GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 16.rs(context)),
+                        child: SvgPicture.asset(
+                          fit: BoxFit.fill,
+                          _obscureText ? AppAssets.hide : AppAssets.show,
+
+                          colorFilter: const ColorFilter.mode(
+                            AppColors.neutral900,
+                            BlendMode.srcIn,
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                : widget.suffixIcon,
+                    )
+                  : widget.suffixIcon,
 
-            contentPadding:
-                widget.contentPadding ??
-                EdgeInsets.symmetric(horizontal: 16, vertical: 16.rs(context)),
+              contentPadding:
+                  widget.contentPadding ??
+                  EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 16.rs(context),
+                  ),
 
-            border: widget.border ?? InputBorder.none,
+              border: widget.border ?? InputBorder.none,
 
-            enabledBorder: widget.enabledBorder ?? InputBorder.none,
+              enabledBorder: widget.enabledBorder ?? InputBorder.none,
 
-            focusedBorder:
-                widget.focusedBorder ?? _border(AppColors.primary600),
+              focusedBorder:
+                  widget.focusedBorder ?? _border(AppColors.primary600),
 
-            errorBorder: widget.errorBorder ?? _border(AppColors.danger500),
+              errorBorder: widget.errorBorder ?? _border(AppColors.danger500),
 
-            focusedErrorBorder:
-                widget.focusedErrorBorder ?? _border(AppColors.danger500),
+              focusedErrorBorder:
+                  widget.focusedErrorBorder ?? _border(AppColors.danger500),
 
-            disabledBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
 
-            errorStyle: context.cairo(
-              size: 12,
-              weight: AppTypography.medium,
-              color: AppColors.danger500,
+              errorStyle: context.cairo(
+                size: 12,
+                weight: AppTypography.medium,
+                color: AppColors.danger500,
+              ),
             ),
           ),
         ),

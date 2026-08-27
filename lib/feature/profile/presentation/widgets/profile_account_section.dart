@@ -10,15 +10,13 @@ import 'package:flutter_svg/svg.dart';
 class ProfileAccountSection extends StatelessWidget {
   final VoidCallback onDeletePressed;
   final VoidCallback onLogoutPressed;
-  final bool isDeleteDialogOpen;
-  final bool isLogoutDialogOpen;
+
 
   const ProfileAccountSection({
     super.key,
     required this.onDeletePressed,
     required this.onLogoutPressed,
-    required this.isDeleteDialogOpen,
-    required this.isLogoutDialogOpen,
+
   });
 
   @override
@@ -66,7 +64,7 @@ class ProfileAccountSection extends StatelessWidget {
             borderRadius: 24.rs(context),
             width: double.infinity,
             color: AppColors.danger100,
-            borderColor: isDeleteDialogOpen ? AppColors.danger500 : null,
+      
             padding: EdgeInsets.symmetric(
               horizontal: 16.rs(context),
               vertical: 12.rs(context),
@@ -103,7 +101,7 @@ class ProfileAccountSection extends StatelessWidget {
             borderRadius: 24.rs(context),
             width: double.infinity,
             color: AppColors.neutral200,
-            borderColor: isLogoutDialogOpen ? AppColors.primary600 : null,
+          
             padding: EdgeInsets.symmetric(
               horizontal: 16.rs(context),
               vertical: 12.rs(context),

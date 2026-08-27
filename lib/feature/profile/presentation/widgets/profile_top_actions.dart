@@ -9,22 +9,27 @@ import 'package:flutter_svg/svg.dart';
 
 class ProfileTopActions extends StatelessWidget {
   final bool isEditing;
+  final bool hasChanges;
   final VoidCallback onEditPressed;
   final VoidCallback onSavePressed;
   final VoidCallback onCancelPressed;
+  final VoidCallback onDeletePressed;
   const ProfileTopActions({
     super.key,
-
     required this.isEditing,
+    required this.hasChanges,
     required this.onEditPressed,
     required this.onSavePressed,
     required this.onCancelPressed,
+    required this.onDeletePressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.rs(context)),
+      padding: EdgeInsets.symmetric(
+        horizontal: 16.rs(context),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -46,10 +51,9 @@ class ProfileTopActions extends StatelessWidget {
                       style: context.cairo(
                         size: 14,
                         weight: AppTypography.bold,
-                        color: AppColors.primary600, // #1B656A,
+                        color: AppColors.primary600,
                       ),
                     ),
-
                     SizedBox(width: 8.rs(context)),
                     SvgPicture.asset(
                       AppAssets.edit,
@@ -67,7 +71,8 @@ class ProfileTopActions extends StatelessWidget {
           else
             Expanded(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween,
                 children: [
                   CustomButton(
                     color: AppColors.primary600,
@@ -84,31 +89,32 @@ class ProfileTopActions extends StatelessWidget {
                             AppAssets.cancel,
                             width: 10.rs(context),
                             height: 10.rs(context),
-                            colorFilter: const ColorFilter.mode(
+                            colorFilter:
+                                const ColorFilter.mode(
                               AppColors.primaryBrandWhite,
                               BlendMode.srcIn,
                             ),
                           ),
-
                           SizedBox(width: 8.rs(context)),
-
                           Text(
                             'تجاهل',
                             style: context.cairo(
                               size: 14,
                               weight: AppTypography.bold,
-                              color: AppColors.primaryBrandWhite, // #1B656A,
+                              color:
+                                  AppColors.primaryBrandWhite,
                             ),
                           ),
                         ],
                       ),
                     ),
                   ),
+
                   CustomButton(
-                    borderColor: AppColors.primary600,
-                    color: AppColors.primaryAssist50,
+                    borderColor: hasChanges ? AppColors.primary600 : AppColors.neutral300,
+                    color: hasChanges ? AppColors.primaryAssist50 : AppColors.neutral200,
                     borderRadius: 16.rs(context),
-                    onPressed: onSavePressed,
+                    onPressed: hasChanges ? onSavePressed : null,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: 12.rs(context),
@@ -121,17 +127,17 @@ class ProfileTopActions extends StatelessWidget {
                             style: context.cairo(
                               size: 14,
                               weight: AppTypography.bold,
-                              color: AppColors.primary600, // #1B656A,
+                              color: hasChanges ? AppColors.primary600 : AppColors.neutral500,
                             ),
                           ),
-
                           SizedBox(width: 8.rs(context)),
                           SvgPicture.asset(
                             AppAssets.check,
                             width: 10.rs(context),
                             height: 10.rs(context),
-                            colorFilter: const ColorFilter.mode(
-                              AppColors.primary600,
+                            colorFilter:
+                                ColorFilter.mode(
+                              hasChanges ? AppColors.primary600 : AppColors.neutral500,
                               BlendMode.srcIn,
                             ),
                           ),

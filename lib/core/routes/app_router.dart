@@ -1,6 +1,9 @@
 import 'package:dawak/core/routes/app_routes.dart';
-import 'package:dawak/feature/auth/login/presentation/pages/login_page.dart';
-import 'package:dawak/feature/auth/signup/presentation/pages/signup_page.dart';
+import 'package:dawak/core/services/service_locator.dart';
+import 'package:dawak/feature/auth/presentation/log_in/pages/login_page.dart';
+import 'package:dawak/feature/auth/presentation/manager/login_cubit/login_cubit.dart';
+import 'package:dawak/feature/auth/presentation/manager/register_cubit/register_cubit.dart';
+import 'package:dawak/feature/auth/presentation/register/pages/register_page.dart';
 import 'package:dawak/feature/cart/presentation/pages/cart_page.dart';
 import 'package:dawak/feature/home/models/product_model.dart';
 import 'package:dawak/feature/cart/presentation/pages/order_confirmation_page.dart';
@@ -13,6 +16,7 @@ import 'package:dawak/feature/order/data/order_cubit.dart';
 import 'package:dawak/feature/order/presentation/pages/order_details_page.dart';
 import 'package:dawak/feature/splash/presentation/pages/splash_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract final class AppRouter {
   AppRouter._();
@@ -44,10 +48,7 @@ abstract final class AppRouter {
     FocusManager.instance.primaryFocus?.unfocus();
     switch (settings.name) {
       case AppRoutes.splash:
-        return _fadeRoute<void>(
-          page: const SplashPage(),
-          settings: settings,
-        );
+        return _fadeRoute<void>(page: const SplashPage(), settings: settings);
 
       case AppRoutes.onboarding:
         return _fadeRoute<void>(
@@ -56,10 +57,22 @@ abstract final class AppRouter {
         );
 
       case AppRoutes.login:
-        return _fadeRoute<void>(page: const LoginPage(), settings: settings);
+        return _fadeRoute<void>(
+          page: BlocProvider(
+            create: (_) => sl<LoginCubit>(),
+            child: const LoginPage(),
+          ),
+          settings: settings,
+        );
 
       case AppRoutes.signup:
-        return _fadeRoute<void>(page: const SignUpPage(), settings: settings);
+        return _fadeRoute<void>(
+          page: BlocProvider(
+            create: (_) => sl<RegisterCubit>(),
+            child: const RegisterPage(),
+          ),
+          settings: settings,
+        );
 
       case AppRoutes.home:
         final initialIndex = settings.arguments as int? ?? 0;

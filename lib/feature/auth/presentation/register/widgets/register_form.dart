@@ -6,8 +6,8 @@ import 'package:dawak/core/widgets/text_field/custom_text_field.dart';
 import 'package:dawak/core/widgets/text_field/field_validators.dart';
 import 'package:flutter/material.dart';
 
-class SignUpForm extends StatelessWidget {
-  const SignUpForm({
+class RegisterForm extends StatelessWidget {
+  const RegisterForm({
     super.key,
     required this.fullNameController,
     required this.phoneController,

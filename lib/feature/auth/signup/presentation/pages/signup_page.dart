@@ -4,9 +4,9 @@ import 'package:dawak/core/routes/app_routes.dart';
 import 'package:dawak/core/theme/app_colors.dart';
 import 'package:dawak/core/theme/typo_graphy/app_typo_graphy.dart';
 import 'package:dawak/core/widgets/redirect_text.dart';
-import 'package:dawak/feature/auth/shared/presentation/widgets/auth_button.dart';
-import 'package:dawak/feature/auth/signup/presentation/widgets/register_success_dialog.dart';
-import 'package:dawak/feature/auth/signup/presentation/widgets/sign_up_form.dart';
+import 'package:dawak/feature/auth/presentation/shared/widgets/auth_button.dart';
+import 'package:dawak/feature/auth/presentation/register/widgets/register_success_dialog.dart';
+import 'package:dawak/feature/auth/presentation/register/widgets/register_form.dart';
 import 'package:flutter/material.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -128,7 +128,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                   SizedBox(height: 42.rs(context)),
 
-                  SignUpForm(
+                  RegisterForm(
                     fullNameController: _fullNameController,
                     phoneController: _phoneController,
                     emailController: _emailController,

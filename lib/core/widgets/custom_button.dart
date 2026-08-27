@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
   final Widget child;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final double? width;
   final double? height;
   final Color? color;
@@ -44,23 +44,23 @@ class CustomButton extends StatelessWidget {
         ? Border.all(color: borderColor!, width: 1.5)
         : null;
 
-    return  Container(
-  width: width,
-  height: height,
-  margin: margin,
-  decoration: BoxDecoration(
-    boxShadow: shadow != null ? [shadow!] : null,
-    borderRadius: customBorderRadius ?? BorderRadius.circular(borderRadius),
-  ),
-  child: Material(
-    color: Colors.transparent,
-    elevation: elevation ?? 0,
-    borderRadius: customBorderRadius ?? BorderRadius.circular(borderRadius),
-    child: InkWell(
-      onTap: disabled ? null : onPressed,
-      borderRadius:
-          customBorderRadius ?? BorderRadius.circular(borderRadius),
-      child: Ink(
+    return Container(
+      width: width,
+      height: height,
+      margin: margin,
+      decoration: BoxDecoration(
+        boxShadow: shadow != null ? [shadow!] : null,
+        borderRadius: customBorderRadius ?? BorderRadius.circular(borderRadius),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        elevation: elevation ?? 0,
+        borderRadius: customBorderRadius ?? BorderRadius.circular(borderRadius),
+        child: InkWell(
+          onTap: (disabled || onPressed == null) ? null : onPressed,
+          borderRadius:
+              customBorderRadius ?? BorderRadius.circular(borderRadius),
+          child: Ink(
         decoration: BoxDecoration(
           color: disabled ? disabledBtnColor : buttonColor,
           gradient: gradient,

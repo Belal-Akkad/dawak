@@ -1,5 +1,6 @@
 import 'package:dawak/core/routes/app_router.dart';
 import 'package:dawak/core/routes/app_routes.dart';
+import 'package:dawak/core/services/service_locator.dart';
 import 'package:dawak/feature/order/data/order_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +12,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+  await initDependencies();
 
   runApp(
     DevicePreview(

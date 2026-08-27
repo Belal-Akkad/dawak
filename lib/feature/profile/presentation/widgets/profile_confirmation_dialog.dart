@@ -49,18 +49,14 @@ class ProfileConfirmationDialog extends StatelessWidget {
                     ? const Color(0xFFFFEBEE)
                     : const Color(0xFFEFF3F6),
                 border: Border.all(
-                  color: isWarning
-                      ? AppColors.danger500
-                      : AppColors.neutral500,
+                  color: isWarning ? AppColors.danger500 : AppColors.neutral500,
                   width: 1.5,
                 ),
               ),
               child: Center(
                 child: Icon(
                   isWarning ? Icons.warning : Icons.info,
-                  color: isWarning
-                      ? AppColors.danger500
-                      : AppColors.neutral500,
+                  color: isWarning ? AppColors.danger500 : AppColors.neutral500,
                   size: 28.rs(context),
                 ),
               ),
@@ -130,8 +126,12 @@ class ProfileConfirmationDialog extends StatelessWidget {
                       vertical: 8.rs(context),
                     ),
                     onPressed: () {
+                      final messenger = ScaffoldMessenger.of(context);
+
+                      if (messenger.mounted) {
+                        messenger.hideCurrentSnackBar();
+                      }
                       onConfirm();
-                      Navigator.of(context).pop();
                     },
                     child: Center(
                       child: Text(

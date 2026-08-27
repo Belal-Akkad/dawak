@@ -7,8 +7,7 @@ abstract final class OnboardingStorage {
 
   static Future<bool> isCompleted() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    // return prefs.getBool(_key) ?? false;
-    return false;
+    return prefs.getBool(_key) ?? false;
   }
 
   static Future<void> setCompleted() async {

@@ -1,3 +1,4 @@
+import 'package:dawak/core/constants/app_assets.dart';
 import 'package:dawak/core/extentions/responsive_size_extension.dart';
 import 'package:dawak/core/extentions/text_style_extension.dart';
 import 'package:dawak/core/theme/app_colors.dart';
@@ -31,7 +32,7 @@ class DepartmentCategoryCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(
-              icon,
+              AppAssets.healthy,
               width: 28.rs(context),
               height: 28.rs(context),
               colorFilter: const ColorFilter.mode(
