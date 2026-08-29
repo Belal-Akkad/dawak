@@ -38,14 +38,14 @@ class OrderSummaryList extends StatelessWidget {
                     color: AppColors.neutral600,
                   ),
                 ),
-                Text(
-                  '${cartState.quantityFor(product.id)} × ${product.unitPrice} = ${cartState.productTotal(product)} ل.س',
-                  style: context.cairo(
-                    size: 14,
-                    weight: AppTypography.medium,
-                    color: AppColors.neutral600,
-                  ),
-                ),
+                // Text(
+                //   '${cartState.quantityFor(product.id)} × ${product.unitPrice} = ${cartState.productTotal(product)} ل.س',
+                //   style: context.cairo(
+                //     size: 14,
+                //     weight: AppTypography.medium,
+                //     color: AppColors.neutral600,
+                //   ),
+                // ),
               ],
             ),
             SizedBox(height: 8.rs(context)),

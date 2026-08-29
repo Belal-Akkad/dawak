@@ -36,35 +36,35 @@ class CartPage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 12.rs(context)),
                   child: Column(
                     children: [
-                      Expanded(
-                        child: CartProductList(
-                          items: cartState.items,
-                          quantityFor: (product) =>
-                              cartState.quantityFor(product.id),
-                          productTotal: (product) =>
-                              cartState.productTotal(product),
-                          onDelete: (product) =>
-                              context.read<CartCubit>().remove(product),
-                          onUpdateQuantity: (product, newQuantity) {
-                            context.read<CartCubit>().updateQuantity(
-                              product,
-                              newQuantity,
-                            );
-                          },
-                        ),
-                      ),
+                      // Expanded(
+                      //   child: CartProductList(
+                      //     items: cartState.items,
+                      //     quantityFor: (product) =>
+                      //         cartState.quantityFor(product.id),
+                      //     productTotal: (product) =>
+                      //         cartState.productTotal(product),
+                      //     onDelete: (product) =>
+                      //         context.read<CartCubit>().remove(product),
+                      //     onUpdateQuantity: (product, newQuantity) {
+                      //       context.read<CartCubit>().updateQuantity(
+                      //         product,
+                      //         newQuantity,
+                      //       );
+                      //     },
+                      //   ),
+                      // ),
                       SizedBox(height: 12.rs(context)),
-                      CartFooterActions(
-                        differentProductsCount:
-                            cartState.differentProductsCount,
-                        totalPrice: cartState.totalPrice,
-                        onConfirmOrder: () => Navigator.of(
-                          context,
-                        ).pushNamed(AppRoutes.cartConfirmation),
-                        onClearCart: () => Navigator.of(
-                          context,
-                        ).pushNamed(AppRoutes.home),
-                      ),
+                      // CartFooterActions(
+                      //   differentProductsCount:
+                      //       cartState.differentProductsCount,
+                      //   totalPrice: cartState.totalPrice,
+                      //   onConfirmOrder: () => Navigator.of(
+                      //     context,
+                      //   ).pushNamed(AppRoutes.cartConfirmation),
+                      //   onClearCart: () => Navigator.of(
+                      //     context,
+                      //   ).pushNamed(AppRoutes.home),
+                      // ),
                     ],
                   ),
                 ),

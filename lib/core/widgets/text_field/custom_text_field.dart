@@ -194,6 +194,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
             textInputAction: widget.fieldType == FieldType.password
                 ? TextInputAction.done
+                : widget.fieldType == FieldType.search
+                ? TextInputAction.search
                 : TextInputAction.next,
 
             obscureText:

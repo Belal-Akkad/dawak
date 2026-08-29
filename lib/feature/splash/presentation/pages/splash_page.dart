@@ -7,7 +7,6 @@ import 'package:dawak/core/services/service_locator.dart';
 import 'package:dawak/feature/splash/presentation/widgets/splash_logo.dart';
 import 'package:flutter/material.dart';
 
-
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
@@ -33,7 +32,8 @@ class _SplashPageState extends State<SplashPage> {
     await Future<void>.delayed(const Duration(milliseconds: 2200));
 
     final bool onboardingCompleted = await OnboardingStorage.isCompleted();
-    final String? accessToken = await sl<SecureStorageService>().getAccessToken();
+    final String? accessToken = await sl<SecureStorageService>()
+        .getAccessToken();
 
     if (!mounted) {
       return;
@@ -45,10 +45,11 @@ class _SplashPageState extends State<SplashPage> {
     }
 
     if (accessToken != null && accessToken.isNotEmpty) {
+        print(accessToken.toString());
       Navigator.of(context).pushReplacementNamed(AppRoutes.home);
       return;
     }
-
+  
     Navigator.of(context).pushReplacementNamed(AppRoutes.login);
   }
 
@@ -68,8 +69,6 @@ class _SplashPageState extends State<SplashPage> {
             ],
             stops: [0.0, 0.35, 0.7, 1.0],
           ),
-          
-          
         ),
         child: const SafeArea(child: Center(child: SplashLogo())),
       ),

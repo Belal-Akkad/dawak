@@ -1,12 +1,12 @@
+import 'package:dawak/feature/products/domain/entity/product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:dawak/core/extentions/responsive_size_extension.dart';
 import 'package:dawak/core/extentions/text_style_extension.dart';
 import 'package:dawak/core/theme/app_colors.dart';
 import 'package:dawak/core/theme/typo_graphy/app_typo_graphy.dart';
-import 'package:dawak/feature/home/models/product_model.dart';
 
 class ProductDetailsInfoSection extends StatelessWidget {
-  final ProductModel product;
+  final ProductEntity product;
 
   const ProductDetailsInfoSection({super.key, required this.product});
 
@@ -28,7 +28,7 @@ class ProductDetailsInfoSection extends StatelessWidget {
           SizedBox(height: 12.rs(context)),
 
           Text(
-            product.price,
+            product.price.toString(),
             style: context.cairo(
               size: 16,
               weight: AppTypography.bold,
@@ -37,7 +37,7 @@ class ProductDetailsInfoSection extends StatelessWidget {
           ),
           SizedBox(height: 8.rs(context)),
 
-          if (product.requiresPrescription)
+          if (product.isRequiredPrescription)
             Text(
               'يحتاج إلى وصفة طبية',
               style: context.cairo(

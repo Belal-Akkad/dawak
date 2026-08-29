@@ -2,15 +2,17 @@ import 'package:dawak/core/extentions/responsive_size_extension.dart';
 import 'package:dawak/core/extentions/text_style_extension.dart';
 import 'package:dawak/core/routes/app_routes.dart';
 import 'package:dawak/core/theme/typo_graphy/app_typo_graphy.dart';
+import 'package:dawak/core/widgets/cart_availablility_badge.dart';
 import 'package:dawak/core/widgets/custom_button.dart';
+import 'package:dawak/core/widgets/custom_cached_network_image.dart';
+import 'package:dawak/feature/products/domain/entity/product_entity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dawak/core/manager/cart_cubit/cart_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:dawak/core/theme/app_colors.dart';
-import '../../models/product_model.dart';
 
 class HomeProductCard extends StatelessWidget {
-  final ProductModel product;
+  final ProductEntity product;
 
   const HomeProductCard({super.key, required this.product});
 
@@ -18,10 +20,9 @@ class HomeProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(
-          AppRoutes.productDetails,
-          arguments: product,
-        );
+        Navigator.of(
+          context,
+        ).pushNamed(AppRoutes.productDetails, arguments: product);
       },
       child: SizedBox(
         width: 150.rs(context),
@@ -48,12 +49,13 @@ class HomeProductCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 2.rs(context)),
+              SizedBox(height: 6.rs(context)),
 
               Center(
-                child: SizedBox(
+                child: CustomCachedNetworkImage(
+                  imageUrl: product.imageUrl ?? '',
                   height: 80.rs(context),
-                  child: Image.asset(product.image, fit: BoxFit.fill),
+                  fit: BoxFit.fill,
                 ),
               ),
 
@@ -96,7 +98,7 @@ class HomeProductCard extends StatelessWidget {
                     SizedBox(height: 6.rs(context)),
 
                     Text(
-                      product.price,
+                      '${product.price} ل.س',
                       style: context.cairo(
                         size: 10,
                         color: AppColors.neutral900,
@@ -106,20 +108,21 @@ class HomeProductCard extends StatelessWidget {
                     SizedBox(height: 6.rs(context)),
 
                     Text(
-                      product.requiresPrescription
+                      product.isRequiredPrescription
                           ? "يتطلب وصفة طبية"
                           : "لا يتطلب وصفة طبية",
                       style: context.cairo(
                         size: 12,
-                        color: product.requiresPrescription
+                        color: product.isRequiredPrescription
                             ? AppColors.warning400
                             : AppColors.success400,
                         weight: AppTypography.regular,
                       ),
                     ),
+                    SizedBox(height: 6.rs(context)),
 
+                    CartAvailabilityBadge(stock: product.quantity),
                     SizedBox(height: 12.rs(context)),
-
                     BlocBuilder<CartCubit, CartState>(
                       builder: (context, state) {
                         final added = state.ids.contains(product.id);
@@ -160,4 +163,3 @@ class HomeProductCard extends StatelessWidget {
     );
   }
 }
-

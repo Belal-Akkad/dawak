@@ -111,8 +111,8 @@ class ProfileTopActions extends StatelessWidget {
                   ),
 
                   CustomButton(
-                    borderColor: hasChanges ? AppColors.primary600 : AppColors.neutral300,
-                    color: hasChanges ? AppColors.primaryAssist50 : AppColors.neutral200,
+                    borderColor: hasChanges ? AppColors.primary600 : null,
+                    color: hasChanges ? AppColors.primaryAssist50 : AppColors.neutral100,
                     borderRadius: 16.rs(context),
                     onPressed: hasChanges ? onSavePressed : null,
                     child: Padding(
@@ -127,7 +127,7 @@ class ProfileTopActions extends StatelessWidget {
                             style: context.cairo(
                               size: 14,
                               weight: AppTypography.bold,
-                              color: hasChanges ? AppColors.primary600 : AppColors.neutral500,
+                              color: hasChanges ? AppColors.primary600 : AppColors.neutral400,
                             ),
                           ),
                           SizedBox(width: 8.rs(context)),

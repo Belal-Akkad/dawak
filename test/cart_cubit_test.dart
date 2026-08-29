@@ -1,11 +1,11 @@
 import 'package:dawak/core/manager/cart_cubit/cart_cubit.dart';
-import 'package:dawak/feature/home/models/product_model.dart';
+import 'package:dawak/feature/home/test/test_homeproduct_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   late CartCubit cartCubit;
 
-  final product = ProductModel(
+  final product = ProductEntity(
     id: 'p1',
     name: 'بنادول',
     image: '',

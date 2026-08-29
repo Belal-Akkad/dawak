@@ -1,14 +1,14 @@
 import 'package:dawak/core/extentions/responsive_size_extension.dart';
 import 'package:dawak/feature/cart/presentation/widgets/cart_product_card/cart_product_card.dart';
-import 'package:dawak/feature/home/models/product_model.dart';
+import 'package:dawak/feature/products/domain/entity/product_entity.dart';
 import 'package:flutter/material.dart';
 
 class CartProductList extends StatelessWidget {
-  final List<ProductModel> items;
-  final int Function(ProductModel product) quantityFor;
-  final int Function(ProductModel product) productTotal;
-  final void Function(ProductModel product) onDelete;
-  final void Function(ProductModel product, int newQuantity) onUpdateQuantity;
+  final List<ProductEntity> items;
+  final int Function(ProductEntity product) quantityFor;
+  final int Function(ProductEntity product) productTotal;
+  final void Function(ProductEntity product) onDelete;
+  final void Function(ProductEntity product, int newQuantity) onUpdateQuantity;
 
   const CartProductList({
     super.key,
@@ -35,10 +35,10 @@ class CartProductList extends StatelessWidget {
           key: ValueKey(product.id),
           product: product,
           quantity: quantity,
-          availableStock: product.stock,
-          unitPrice: product.unitPrice,
+          availableStock: product.quantity,
+          unitPrice: product.price.toInt(),
           totalPrice: total,
-          requiresPrescription: product.requiresPrescription,
+          requiresPrescription: product.isRequiredPrescription,
           onIncrease: () => onUpdateQuantity(product, quantity + 1),
           onDecrease: () => onUpdateQuantity(product, quantity - 1),
           onDelete: () => onDelete(product),

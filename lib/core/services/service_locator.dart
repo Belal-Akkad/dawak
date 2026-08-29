@@ -1,3 +1,18 @@
+import 'package:dawak/feature/home/data/remote_data_source/home_remote_data_source.dart';
+import 'package:dawak/feature/home/data/remote_data_source/search_home_remote_data_source.dart';
+import 'package:dawak/feature/home/data/repo/get_home_repo_impl.dart';
+import 'package:dawak/feature/home/data/repo/search_home_repo_impl.dart';
+import 'package:dawak/feature/home/domain/repo/get_home_repo.dart';
+import 'package:dawak/feature/home/domain/repo/search_home_repo.dart';
+import 'package:dawak/feature/home/domain/use_case/get_home_use_case.dart';
+import 'package:dawak/feature/home/domain/use_case/search_home_use_case.dart';
+import 'package:dawak/feature/home/presentation/manager/get_home_cubit/get_home_cubit.dart';
+import 'package:dawak/feature/home/presentation/manager/search_home_cubit/search_home_cubit.dart';
+import 'package:dawak/feature/products/data/remote_data_source/products_remote_data_source.dart';
+import 'package:dawak/feature/products/data/repo/products_repo_impl.dart';
+import 'package:dawak/feature/products/domain/repo/products_repo.dart';
+import 'package:dawak/feature/products/domain/use_case/get_products_use_case.dart';
+import 'package:dawak/feature/products/presentation/manager/products_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
@@ -46,6 +61,17 @@ import 'package:dawak/feature/profile/presentation/manager/get_profile_cubit/get
 import 'package:dawak/feature/profile/presentation/manager/logout_cubit/logout_cubit.dart';
 import 'package:dawak/feature/profile/presentation/manager/update_profile_cubit/update_profile_cubit.dart';
 
+// Categories - Data
+import 'package:dawak/feature/categories/data/remote_data_source/categories_remote_data_source.dart';
+import 'package:dawak/feature/categories/data/repo/categories_repository_impl.dart';
+
+// Categories - Domain
+import 'package:dawak/feature/categories/domain/repo/categories_repository.dart';
+import 'package:dawak/feature/categories/domain/use_case/get_categories_use_case.dart';
+
+// Categories - Presentation
+import 'package:dawak/feature/categories/presentation/manager/categories_cubit/categories_cubit.dart';
+
 final sl = GetIt.instance;
 
 Future<void> initDependencies() async {
@@ -59,27 +85,17 @@ Future<void> initDependencies() async {
   );
 
   sl.registerLazySingleton<SecureStorageService>(
-    () => SecureStorageService(
-      storage: sl(),
-    ),
+    () => SecureStorageService(storage: sl()),
   );
 
   // Network
   sl.registerLazySingleton<AuthInterceptor>(
-    () => AuthInterceptor(
-      secureStorage: sl(),
-    ),
+    () => AuthInterceptor(secureStorage: sl()),
   );
 
-  sl.registerLazySingleton<DioClient>(
-    () => DioClient(
-      sl(),
-    ),
-  );
+  sl.registerLazySingleton<DioClient>(() => DioClient(sl()));
 
-  sl.registerLazySingleton<Dio>(
-    () => sl<DioClient>().dio,
-  );
+  sl.registerLazySingleton<Dio>(() => sl<DioClient>().dio);
 
   // ============================================================
   // Auth
@@ -90,9 +106,7 @@ Future<void> initDependencies() async {
   // ----------------------------
 
   sl.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSource(
-      dioClient: sl(),
-    ),
+    () => AuthRemoteDataSource(dioClient: sl()),
   );
 
   // ----------------------------
@@ -100,46 +114,26 @@ Future<void> initDependencies() async {
   // ----------------------------
 
   sl.registerLazySingleton<RegisterRepo>(
-    () => RegisterRepositoryImpl(
-      remoteDataSource: sl(),
-      storage: sl(),
-    ),
+    () => RegisterRepositoryImpl(remoteDataSource: sl(), storage: sl()),
   );
 
   sl.registerLazySingleton<RegisterUseCase>(
-    () => RegisterUseCase(
-      repository: sl(),
-    ),
+    () => RegisterUseCase(repository: sl()),
   );
 
-  sl.registerFactory<RegisterCubit>(
-    () => RegisterCubit(
-      registerUseCase: sl(),
-    ),
-  );
+  sl.registerFactory<RegisterCubit>(() => RegisterCubit(registerUseCase: sl()));
 
   // ----------------------------
   // Login
   // ----------------------------
 
   sl.registerLazySingleton<LoginRepo>(
-    () => LoginRepositoryImpl(
-      remoteDataSource: sl(),
-      storage: sl(),
-    ),
+    () => LoginRepositoryImpl(remoteDataSource: sl(), storage: sl()),
   );
 
-  sl.registerLazySingleton<LoginUseCase>(
-    () => LoginUseCase(
-      repository: sl(),
-    ),
-  );
+  sl.registerLazySingleton<LoginUseCase>(() => LoginUseCase(repository: sl()));
 
-  sl.registerFactory<LoginCubit>(
-    () => LoginCubit(
-      loginUseCase: sl(),
-    ),
-  );
+  sl.registerFactory<LoginCubit>(() => LoginCubit(loginUseCase: sl()));
 
   // ============================================================
   // Profile
@@ -150,9 +144,7 @@ Future<void> initDependencies() async {
   // ----------------------------
 
   sl.registerLazySingleton<ProfileRemoteDataSource>(
-    () => ProfileRemoteDataSource(
-      dioClient: sl(),
-    ),
+    () => ProfileRemoteDataSource(dioClient: sl()),
   );
 
   // ----------------------------
@@ -160,21 +152,13 @@ Future<void> initDependencies() async {
   // ----------------------------
 
   sl.registerLazySingleton<GetProfileRepository>(
-    () => GetProfileRepositoryImpl(
-      sl(),
-    ),
+    () => GetProfileRepositoryImpl(sl()),
   );
 
-  sl.registerLazySingleton<GetProfileUseCase>(
-    () => GetProfileUseCase(
-      sl(),
-    ),
-  );
+  sl.registerLazySingleton<GetProfileUseCase>(() => GetProfileUseCase(sl()));
 
   sl.registerFactory<GetProfileCubit>(
-    () => GetProfileCubit(
-      getProfileUseCase: sl(),
-    ),
+    () => GetProfileCubit(getProfileUseCase: sl()),
   );
 
   // ----------------------------
@@ -182,21 +166,15 @@ Future<void> initDependencies() async {
   // ----------------------------
 
   sl.registerLazySingleton<UpdateProfileRepository>(
-    () => UpdateProfileRepositoryImpl(
-      sl(),
-    ),
+    () => UpdateProfileRepositoryImpl(sl()),
   );
 
   sl.registerLazySingleton<UpdateProfileUseCase>(
-    () => UpdateProfileUseCase(
-      sl(),
-    ),
+    () => UpdateProfileUseCase(sl()),
   );
 
   sl.registerFactory<UpdateProfileCubit>(
-    () => UpdateProfileCubit(
-      updateProfileUseCase: sl(),
-    ),
+    () => UpdateProfileCubit(updateProfileUseCase: sl()),
   );
 
   // ----------------------------
@@ -204,43 +182,104 @@ Future<void> initDependencies() async {
   // ----------------------------
 
   sl.registerLazySingleton<LogoutRepository>(
-    () => LogoutRepositoryImpl(
-      remoteDataSource: sl(),
-      storage: sl(),
-    ),
+    () => LogoutRepositoryImpl(remoteDataSource: sl(), storage: sl()),
   );
 
-  sl.registerLazySingleton<LogoutUseCase>(
-    () => LogoutUseCase(
-      sl(),
-    ),
-  );
+  sl.registerLazySingleton<LogoutUseCase>(() => LogoutUseCase(sl()));
 
-  sl.registerFactory<LogoutCubit>(
-    () => LogoutCubit(
-      logoutUseCase: sl(),
-    ),
-  );
+  sl.registerFactory<LogoutCubit>(() => LogoutCubit(logoutUseCase: sl()));
 
   // ----------------------------
   // Delete Account
   // ----------------------------
 
   sl.registerLazySingleton<DeleteAccountRepo>(
-    () => DeleteAccountRepositoryImpl(
-      remoteDataSource: sl(),
-    ),
+    () => DeleteAccountRepositoryImpl(remoteDataSource: sl()),
   );
 
   sl.registerLazySingleton<DeleteAccountUseCase>(
-    () => DeleteAccountUseCase(
-      repository: sl(),
-    ),
+    () => DeleteAccountUseCase(repository: sl()),
   );
 
   sl.registerFactory<DeleteAccountCubit>(
-    () => DeleteAccountCubit(
-      deleteAccountUseCase: sl(),
-    ),
+    () => DeleteAccountCubit(deleteAccountUseCase: sl()),
   );
+
+  // ============================================================
+  // Categories
+  // ============================================================
+
+  // ----------------------------
+  // Remote Data Source
+  // ----------------------------
+
+  sl.registerLazySingleton<CategoriesRemoteDataSource>(
+    () => CategoriesRemoteDataSource(dioClient: sl()),
+  );
+
+  // ----------------------------
+  // Get Categories
+  // ----------------------------
+
+  sl.registerLazySingleton<CategoriesRepository>(
+    () => CategoriesRepositoryImpl(sl()),
+  );
+
+  sl.registerLazySingleton<GetCategoriesUseCase>(
+    () => GetCategoriesUseCase(sl()),
+  );
+
+  sl.registerFactory<CategoriesCubit>(
+    () => CategoriesCubit(getCategoriesUseCase: sl()),
+  );
+
+  // ----------------------------
+  // Get Home
+  // ----------------------------
+
+  sl.registerLazySingleton<HomeRemoteDataSource>(
+    () => HomeRemoteDataSource(dioClient: sl()),
+  );
+
+  sl.registerLazySingleton<GetHomeRepository>(
+    () => GetHomeRepositoryImpl(sl()),
+  );
+
+  sl.registerLazySingleton<GetHomeUseCase>(() => GetHomeUseCase(sl()));
+
+  sl.registerFactory<GetHomeCubit>(() => GetHomeCubit(getHomeUseCase: sl()));
+
+  // ----------------------------
+  // Get Products
+  // ----------------------------
+
+  sl.registerLazySingleton<ProductsRemoteDataSource>(
+    () => ProductsRemoteDataSource(dioClient: sl()),
+  );
+
+  sl.registerLazySingleton<ProductsRepository>(
+    () => ProductsRepositoryImpl(sl()),
+  );
+
+  sl.registerLazySingleton<GetProductsUseCase>(() => GetProductsUseCase(sl()));
+
+  sl.registerFactory<ProductsCubit>(
+    () => ProductsCubit(getProductsUseCase: sl()),
+  );
+
+  // ----------------------------
+  // Search Home
+  // ----------------------------
+
+  sl.registerLazySingleton<SearchHomeRemoteDataSource>(
+    () => SearchHomeRemoteDataSource(dioClient: sl()),
+  );
+
+  sl.registerLazySingleton<SearchHomeRepository>(
+    () => SearchHomeRepositoryImpl(sl()),
+  );
+
+  sl.registerLazySingleton<SearchHomeUseCase>(() => SearchHomeUseCase(sl()));
+
+  sl.registerFactory<SearchHomeCubit>(() => SearchHomeCubit(sl()));
 }

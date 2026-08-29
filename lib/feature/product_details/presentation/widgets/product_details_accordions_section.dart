@@ -1,16 +1,16 @@
 import 'package:dawak/core/constants/app_assets.dart';
+import 'package:dawak/feature/products/domain/entity/product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:dawak/core/extentions/responsive_size_extension.dart';
-import 'package:dawak/feature/home/models/product_model.dart';
 import 'product_details_accordion.dart';
 
 class ProductDetailsAccordionsSection extends StatelessWidget {
-  final ProductModel product;
+  final ProductEntity product;
 
   const ProductDetailsAccordionsSection({super.key, required this.product});
 
   // Mock data for accordion content
-  Map<String, String> _getAccordionContent(ProductModel product) {
+  Map<String, String> _getAccordionContent(ProductEntity product) {
     // Default content for demonstration
     const defaultContent = {
       'description':
@@ -27,11 +27,11 @@ class ProductDetailsAccordionsSection extends StatelessWidget {
 
     // Use product description if available, otherwise use defaults
     return {
-      'description': product.description,
-      'usage': product.usage ?? defaultContent['usage']!,
-      'dosage': product.dosage ?? defaultContent['dosage']!,
-      'sideEffects': product.sideEffects ?? defaultContent['sideEffects']!,
-      'warnings': product.warnings ?? defaultContent['warnings']!,
+      // 'description': product.description,
+      // 'usage': product.usage ?? defaultContent['usage']!,
+      // 'dosage': product.dosage ?? defaultContent['dosage']!,
+      // 'sideEffects': product.sideEffects ?? defaultContent['sideEffects']!,
+      // 'warnings': product.warnings ?? defaultContent['warnings']!,
     };
   }
 

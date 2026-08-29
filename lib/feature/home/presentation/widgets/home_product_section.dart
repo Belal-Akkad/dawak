@@ -1,25 +1,29 @@
 import 'package:dawak/core/extentions/responsive_size_extension.dart';
 import 'package:dawak/core/extentions/text_style_extension.dart';
 import 'package:dawak/core/routes/app_routes.dart';
-import 'package:dawak/core/theme/typo_graphy/app_typo_graphy.dart';
-import 'package:flutter/material.dart';
+import 'package:dawak/core/routes/products_route_arqument.dart';
 import 'package:dawak/core/theme/app_colors.dart';
-import 'package:dawak/feature/products/data/models/products_model.dart';
-import '../../models/product_model.dart';
+import 'package:dawak/core/theme/typo_graphy/app_typo_graphy.dart';
+import 'package:dawak/feature/products/domain/entity/product_entity.dart';
+import 'package:flutter/material.dart';
 import 'home_product_card.dart';
 
 class HomeProductSection extends StatelessWidget {
   final String title;
-  final List<ProductModel> products;
+  final String endpoint;
+  final List<ProductEntity> products;
+
   const HomeProductSection({
     super.key,
     required this.title,
+    required this.endpoint,
     required this.products,
   });
 
   @override
   Widget build(BuildContext context) {
     final display = products.take(5).toList();
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 12.rs(context)),
       child: Column(
@@ -33,50 +37,71 @@ class HomeProductSection extends StatelessWidget {
                 style: context.cairo(
                   size: 16,
                   weight: AppTypography.bold,
-
                   color: AppColors.neutral900,
                 ),
               ),
 
-              InkWell(
-                borderRadius: BorderRadius.circular(20),
-                onTap: () {
-                  Navigator.of(context).pushNamed(
-                    AppRoutes.categoryProducts,
-                    arguments: ProductsModel(
-                      categoryName: title,
-                      products: products,
+              if (products.length > 3)
+                InkWell(
+                  borderRadius: BorderRadius.circular(20),
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                      AppRoutes.products,
+                      arguments: ProductsRouteArguments(
+                        title: title,
+                        endpoint: endpoint,
+                      ),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
                     ),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
-                  child: Text(
-                    'عرض الكل',
-                    style: context.cairo(
-                      size: 12,
-                      weight: AppTypography.bold,
-                      color: AppColors.primary500,
+                    child: Text(
+                      'عرض الكل',
+                      style: context.cairo(
+                        size: 12,
+                        weight: AppTypography.bold,
+                        color: AppColors.primary500,
+                      ),
                     ),
                   ),
                 ),
-              ),
             ],
           ),
+
           SizedBox(height: 6.rs(context)),
-          SizedBox(
-            height: 260.rs(context),
-            child: ListView.builder(
-              physics: BouncingScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              itemCount: display.length,
-              itemBuilder: (context, index) =>
-                  HomeProductCard(product: display[index]),
+
+          if (products.isEmpty)
+            SizedBox(
+              height: 200.rs(context),
+              child: Center(
+                child: Text(
+                  'لا توجد منتجات متاحة حالياً، ترقبوا توفرها قريباً',
+                  textAlign: TextAlign.center,
+                  style: context.cairo(
+                    size: 16,
+                    weight: AppTypography.semiBold,
+                    color: AppColors.primary950,
+                  ),
+                ),
+              ),
+            )
+          else
+            SizedBox(
+              height: 290.rs(context),
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemCount: display.length,
+                itemBuilder: (context, index) {
+                  return HomeProductCard(
+                    product: display[index],
+                  );
+                },
+              ),
             ),
-          ),
         ],
       ),
     );

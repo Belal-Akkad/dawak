@@ -2,10 +2,10 @@ import 'package:dawak/core/extentions/text_style_extension.dart';
 import 'package:dawak/core/manager/cart_cubit/cart_cubit.dart';
 import 'package:dawak/core/theme/typo_graphy/app_typo_graphy.dart';
 import 'package:dawak/core/widgets/custom_button.dart';
+import 'package:dawak/feature/products/domain/entity/product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:dawak/core/extentions/responsive_size_extension.dart';
 import 'package:dawak/core/theme/app_colors.dart';
-import 'package:dawak/feature/home/models/product_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
@@ -15,7 +15,7 @@ class ProductDetailsFooter extends StatelessWidget {
     required this.product,
   });
 
-  final ProductModel product;
+  final ProductEntity product;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class ProductDetailsFooter extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 12.rs(context)),
               borderRadius: 8.rs(context),
               onPressed: () {
-                context.read<CartCubit>().toggle(product);
+                // context.read<CartCubit>().toggle(product);
               },
               child: Text(
                 textAlign: TextAlign.center,

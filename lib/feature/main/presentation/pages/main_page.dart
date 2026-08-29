@@ -1,10 +1,12 @@
+import 'package:dawak/core/services/service_locator.dart';
 import 'package:dawak/core/theme/app_colors.dart';
+import 'package:dawak/feature/categories/presentation/manager/categories_cubit/categories_cubit.dart';
+import 'package:dawak/feature/categories/presentation/pages/category_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dawak/core/manager/bottom_nav_cubit/bottom_nav_cubit.dart';
 import 'package:dawak/core/widgets/nav_bar/app_bottom_nav.dart';
 import 'package:dawak/feature/home/presentation/pages/home_page.dart';
-import 'package:dawak/feature/department/presentation/pages/department_page.dart';
 import 'package:dawak/feature/order/presentation/pages/orders_page.dart';
 import 'package:dawak/feature/profile/presentation/pages/profile_page.dart';
 
@@ -37,7 +39,11 @@ class _MainShellState extends State<MainShell> {
 
     switch (index) {
       case 1:
-        pages[index] = const DepartmentsPage();
+        pages[index] = BlocProvider(
+          create: (_) => sl<CategoriesCubit>(),
+          child: const CategoryPage(),
+        );
+
         break;
 
       case 2:

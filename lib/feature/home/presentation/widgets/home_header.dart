@@ -1,8 +1,10 @@
 import 'package:dawak/core/extentions/responsive_size_extension.dart';
 import 'package:dawak/core/widgets/text_field/custom_search_field.dart';
+import 'package:dawak/feature/home/presentation/manager/search_home_cubit/search_home_cubit.dart';
 import 'package:dawak/feature/home/presentation/widgets/home_header_action.dart';
 import 'package:flutter/material.dart';
 import 'package:dawak/core/theme/app_colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeHeader extends StatefulWidget {
   const HomeHeader({super.key});
@@ -44,13 +46,24 @@ class _HomeHeaderState extends State<HomeHeader> {
               CustomSearchField(
                 controller: searchController,
                 hintText: 'ابحث عن منتج',
-
                 onChanged: (value) {
-                  // إذا بدك بحث مباشر
-                },
+                  final query = value.trim();
 
+                  if (query.isEmpty) {
+                    context.read<SearchHomeCubit>().clearSearch();
+                    return;
+                  }
+
+                },
                 onSubmitted: (value) {
-                  // تنفيذ البحث عند الضغط على Search
+                  final query = value.trim();
+
+                  if (query.isEmpty) {
+                    context.read<SearchHomeCubit>().clearSearch();
+                    return;
+                  }
+
+                  context.read<SearchHomeCubit>().searchProducts(query);
                 },
               ),
 

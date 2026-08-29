@@ -1,14 +1,19 @@
 import 'dart:async';
 
+import 'package:dawak/core/constants/app_assets.dart';
 import 'package:dawak/core/extentions/responsive_size_extension.dart';
 import 'package:dawak/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomeBanner extends StatefulWidget {
-  final List<String> images;
+  const HomeBanner({super.key});
 
-  const HomeBanner({super.key, required this.images});
+  static final List<String> _images = [
+    AppAssets.bannar1,
+    AppAssets.bannar2,
+    AppAssets.bannar3,
+  ];
 
   @override
   State<HomeBanner> createState() => _HomeBannerState();
@@ -29,7 +34,7 @@ class _HomeBannerState extends State<HomeBanner> {
 
       currentPage++;
 
-      if (currentPage >= widget.images.length) {
+      if (currentPage >= HomeBanner._images.length) {
         currentPage = 0;
       }
 
@@ -56,7 +61,7 @@ class _HomeBannerState extends State<HomeBanner> {
         children: [
           PageView.builder(
             controller: _controller,
-            itemCount: widget.images.length,
+            itemCount: HomeBanner._images.length,
             onPageChanged: (index) {
               setState(() {
                 currentPage = index;
@@ -67,7 +72,10 @@ class _HomeBannerState extends State<HomeBanner> {
                 padding: const EdgeInsets.symmetric(horizontal: 14),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
-                  child: Image.asset(widget.images[index], fit: BoxFit.fill),
+                  child: Image.asset(
+                    HomeBanner._images[index],
+                    fit: BoxFit.fill,
+                  ),
                 ),
               );
             },
@@ -80,7 +88,7 @@ class _HomeBannerState extends State<HomeBanner> {
             child: Center(
               child: AnimatedSmoothIndicator(
                 activeIndex: currentPage,
-                count: widget.images.length,
+                count: HomeBanner._images.length,
                 effect: ExpandingDotsEffect(
                   dotHeight: 8,
                   dotWidth: 8,

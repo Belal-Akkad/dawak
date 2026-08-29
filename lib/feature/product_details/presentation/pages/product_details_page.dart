@@ -1,13 +1,13 @@
 import 'package:dawak/feature/product_details/presentation/widgets/product_details_body.dart';
 import 'package:dawak/feature/product_details/presentation/widgets/product_details_footer.dart';
 import 'package:dawak/feature/product_details/presentation/widgets/product_details_header.dart';
+import 'package:dawak/feature/products/domain/entity/product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:dawak/core/extentions/responsive_size_extension.dart';
 import 'package:dawak/core/theme/app_colors.dart';
-import 'package:dawak/feature/home/models/product_model.dart';
 
 class ProductDetailsPage extends StatelessWidget {
-  final ProductModel product;
+  final ProductEntity product;
 
   const ProductDetailsPage({super.key, required this.product});
 

@@ -1,16 +1,16 @@
 import 'package:dawak/core/extentions/responsive_size_extension.dart';
 import 'package:dawak/core/theme/app_colors.dart';
-import 'package:dawak/feature/cart/presentation/widgets/cart_product_card/cart_availablility_badge.dart';
+import 'package:dawak/core/widgets/cart_availablility_badge.dart';
 import 'package:dawak/feature/cart/presentation/widgets/cart_product_card/cart_delete_button.dart';
 import 'package:dawak/feature/cart/presentation/widgets/cart_product_card/cart_product_image.dart';
 import 'package:dawak/feature/cart/presentation/widgets/cart_product_card/cart_product_info.dart';
 import 'package:dawak/feature/cart/presentation/widgets/cart_product_card/cart_quantity_selector.dart';
 import 'package:dawak/feature/cart/presentation/widgets/cart_product_card/cart_total_price_box.dart';
-import 'package:dawak/feature/home/models/product_model.dart';
+import 'package:dawak/feature/products/domain/entity/product_entity.dart';
 import 'package:flutter/material.dart';
 
 class CartProductCard extends StatefulWidget {
-  final ProductModel product;
+  final ProductEntity product;
   final int quantity;
   final int availableStock;
   final int unitPrice;
@@ -74,7 +74,10 @@ class _CartProductCardState extends State<CartProductCard> {
             children: [
               CartProductImage(product: widget.product),
               SizedBox(height: 24.rs(context)),
-              CartAvailabilityBadge(stock: widget.availableStock),
+              CartAvailabilityBadge(
+                iconSize: 8,
+                textSize: 14,
+                stock: widget.availableStock),
             ],
           ),
           Expanded(
