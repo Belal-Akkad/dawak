@@ -30,6 +30,10 @@ class ApiConstants {
     return '/products?category_id=$categoryId';
   }
 
+  static String productByIdEndPoint(int productId) {
+    return '/products/$productId';
+  }
+
   static const String searchProductsEndPoint = '/products/search';
 
   // ==================== Home ====================

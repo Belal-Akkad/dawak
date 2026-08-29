@@ -2,7 +2,7 @@ import 'package:dawak/core/extentions/text_style_extension.dart';
 import 'package:dawak/core/manager/cart_cubit/cart_cubit.dart';
 import 'package:dawak/core/theme/typo_graphy/app_typo_graphy.dart';
 import 'package:dawak/core/widgets/custom_button.dart';
-import 'package:dawak/feature/products/domain/entity/product_entity.dart';
+import 'package:dawak/feature/product_details/domain/entity/product_details_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:dawak/core/extentions/responsive_size_extension.dart';
 import 'package:dawak/core/theme/app_colors.dart';
@@ -12,10 +12,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ProductDetailsFooter extends StatelessWidget {
   const ProductDetailsFooter({
     super.key,
-    required this.product,
+    required this.productDetails,
   });
 
-  final ProductEntity product;
+  final ProductDetailsEntity productDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class ProductDetailsFooter extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.rs(context)),
         child: BlocBuilder<CartCubit, CartState>(
           builder: (context, state) {
-            final isAdded = state.ids.contains(product.id);
+            final isAdded = state.ids.contains(productDetails.product.id);
             return CustomButton(
               width: double.infinity,
               height: 44.rs(context),

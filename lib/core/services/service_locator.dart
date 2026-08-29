@@ -8,6 +8,11 @@ import 'package:dawak/feature/home/domain/use_case/get_home_use_case.dart';
 import 'package:dawak/feature/home/domain/use_case/search_home_use_case.dart';
 import 'package:dawak/feature/home/presentation/manager/get_home_cubit/get_home_cubit.dart';
 import 'package:dawak/feature/home/presentation/manager/search_home_cubit/search_home_cubit.dart';
+import 'package:dawak/feature/product_details/data/remote_data_source/product_details_remote_data_source.dart';
+import 'package:dawak/feature/product_details/data/repo/product_details_repo_impl.dart';
+import 'package:dawak/feature/product_details/domain/repo/product_details_repo.dart';
+import 'package:dawak/feature/product_details/domain/use_case/get_product_details_use_case.dart';
+import 'package:dawak/feature/product_details/presentation/manager/product_details_cubit/product_details_cubit.dart';
 import 'package:dawak/feature/products/data/remote_data_source/products_remote_data_source.dart';
 import 'package:dawak/feature/products/data/repo/products_repo_impl.dart';
 import 'package:dawak/feature/products/domain/repo/products_repo.dart';
@@ -282,4 +287,19 @@ Future<void> initDependencies() async {
   sl.registerLazySingleton<SearchHomeUseCase>(() => SearchHomeUseCase(sl()));
 
   sl.registerFactory<SearchHomeCubit>(() => SearchHomeCubit(sl()));
+
+  sl.registerLazySingleton<ProductDetailsRemoteDataSource>(
+    () => ProductDetailsRemoteDataSource(dioClient: sl()),
+  );
+
+  sl.registerLazySingleton<ProductDetailsRepository>(
+    () => ProductDetailsRepositoryImpl(sl()),
+  );
+
+  sl.registerLazySingleton<GetProductDetailsUseCase>(
+    () => GetProductDetailsUseCase(sl()),
+  );
+
+  sl.registerFactory<ProductDetailsCubit>( 
+    () => ProductDetailsCubit(sl()));
 }
