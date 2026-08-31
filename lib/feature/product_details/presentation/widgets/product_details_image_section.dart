@@ -21,7 +21,10 @@ class ProductDetailsImageSection extends StatelessWidget {
         ),
         child: Padding(
           padding: EdgeInsets.all(16.rs(context)),
-          child: CustomCachedNetworkImage(imageUrl: productImage,fit: BoxFit.contain,),
+          child: CustomCachedNetworkImage(
+            imageUrl: productImage,
+            fit: BoxFit.contain,
+          ),
         ),
       ),
     );

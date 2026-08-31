@@ -1,11 +1,10 @@
 import 'package:dawak/core/extentions/responsive_size_extension.dart';
-import 'package:dawak/feature/order/data/order_cubit.dart';
 import 'package:dawak/feature/order/presentation/widgets/order_filter_chip.dart';
 import 'package:flutter/material.dart';
 
 class OrdersFilterChips extends StatelessWidget {
-  final OrderStatus? selectedFilter;
-  final ValueChanged<OrderStatus?> onChanged;
+  final String? selectedFilter;
+  final ValueChanged<String?> onChanged;
 
   const OrdersFilterChips({
     super.key,
@@ -13,17 +12,32 @@ class OrdersFilterChips extends StatelessWidget {
     required this.onChanged,
   });
 
-  static const List<OrderStatus?> filters = [
+  static const List<String?> filters = [
     null,
-    OrderStatus.pendingReview,
-    OrderStatus.delivering,
-    OrderStatus.completed,
-    OrderStatus.rejected,
+    'accepted',
+    'pending',
+    'on_delivery',
+    'delivered',
+    'rejected',
   ];
 
-  String _labelFor(OrderStatus? filter) {
-    if (filter == null) return 'الكل';
-    return filter.arabicLabel;
+  String _labelFor(String? filter) {
+    if (filter == null || filter.isEmpty) return 'الكل';
+
+    switch (filter) {
+      case 'pending':
+        return 'قيد المراجعة';
+      case 'on_delivery':
+        return 'قيد التوصيل';
+      case 'delivered':
+        return 'مكتملة';
+      case 'rejected':
+        return 'مرفوضة';
+      case 'accepted':
+        return 'مقبولة';
+      default:
+        return filter;
+    }
   }
 
   @override
@@ -31,11 +45,11 @@ class OrdersFilterChips extends StatelessWidget {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 16.rs(context)),
+        padding: EdgeInsets.symmetric(horizontal: 16.rs(context)),
         child: Row(
           children: filters.asMap().entries.map((entry) {
             final filter = entry.value;
-        
+
             return Padding(
               padding: EdgeInsetsDirectional.only(
                 end: entry.key == filters.length - 1 ? 0 : 8,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dawak/core/constants/app_assets.dart';
 import 'package:dawak/core/functions/pre_load_assets_images.dart';
 import 'package:dawak/core/routes/app_routes.dart';
@@ -45,7 +47,8 @@ class _SplashPageState extends State<SplashPage> {
     }
 
     if (accessToken != null && accessToken.isNotEmpty) {
-        print(accessToken.toString());
+
+      log(accessToken.toString());
       Navigator.of(context).pushReplacementNamed(AppRoutes.home);
       return;
     }

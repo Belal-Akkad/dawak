@@ -3,6 +3,7 @@ import 'package:dawak/core/handler/hide_over_lay_loading_indicator.dart';
 import 'package:dawak/core/handler/over_lay_loading_indicator.dart';
 import 'package:dawak/core/handler/show_error_snack_bar.dart';
 import 'package:dawak/core/manager/bottom_nav_cubit/bottom_nav_cubit.dart';
+import 'package:dawak/core/manager/cart_cubit/cart_cubit.dart';
 import 'package:dawak/core/routes/app_routes.dart';
 import 'package:dawak/core/services/service_locator.dart';
 
@@ -99,7 +100,7 @@ class _ProfileView extends StatelessWidget {
 
             if (state is DeleteAccountSuccess) {
               hideOverLayLoadingIndicator(context);
-
+              context.read<CartCubit>().clear();
               Navigator.of(
                 context,
               ).pushNamedAndRemoveUntil(AppRoutes.login, (route) => false);
@@ -121,7 +122,7 @@ class _ProfileView extends StatelessWidget {
 
             if (state is LogoutSuccess) {
               hideOverLayLoadingIndicator(context);
-
+              context.read<CartCubit>().clear();
               Navigator.of(
                 context,
               ).pushNamedAndRemoveUntil(AppRoutes.login, (route) => false);

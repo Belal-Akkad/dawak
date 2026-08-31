@@ -102,7 +102,7 @@ class _ProductsBodyState extends State<ProductsBody> {
           child: filteredProducts.isEmpty
               ? const ProductsEmptyState()
               : ListView.separated(
-                  physics: const BouncingScrollPhysics(),
+                  physics: const AlwaysScrollableScrollPhysics(),
                   padding: EdgeInsets.zero,
                   itemCount: filteredProducts.length,
                   separatorBuilder: (_, _) =>

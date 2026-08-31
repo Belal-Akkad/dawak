@@ -5,7 +5,6 @@ import 'package:dawak/core/theme/typo_graphy/app_typo_graphy.dart';
 import 'package:dawak/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
-
 class OrderConfirmationFooterActions extends StatelessWidget {
   const OrderConfirmationFooterActions({super.key, required this.onConfirm});
 
@@ -13,9 +12,9 @@ class OrderConfirmationFooterActions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-              top: false,
-  left: false,
-  right: false,
+      top: false,
+      left: false,
+      right: false,
       child: Padding(
         padding: EdgeInsets.only(bottom: 12.rs(context)),
         child: Row(

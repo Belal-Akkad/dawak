@@ -3,12 +3,12 @@ import 'package:dawak/core/extentions/text_style_extension.dart';
 import 'package:dawak/core/routes/app_routes.dart';
 import 'package:dawak/core/theme/app_colors.dart';
 import 'package:dawak/core/theme/typo_graphy/app_typo_graphy.dart';
-import 'package:dawak/feature/order/data/order_cubit.dart';
+import 'package:dawak/feature/order/domain/entity/order_entity.dart';
 import 'package:dawak/feature/order/presentation/widgets/order_status_badge.dart';
 import 'package:flutter/material.dart';
 
 class OrderCard extends StatelessWidget {
-  final OrderModel order;
+  final OrderEntity order;
 
   const OrderCard({super.key, required this.order});
 
@@ -18,7 +18,7 @@ class OrderCard extends StatelessWidget {
       onTap: () {
         Navigator.of(context).pushNamed(
           AppRoutes.orderDetails,
-          arguments: order,
+          arguments: order.id,
         );
       },
       borderRadius: BorderRadius.circular(12.rs(context)),
@@ -44,7 +44,7 @@ class OrderCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    'رقم الطلب ${order.orderNumber}',
+                    'رقم الطلب ${order.id}',
                     overflow: TextOverflow.ellipsis,
                     style: context.cairo(
                       size: 14,
@@ -59,7 +59,7 @@ class OrderCard extends StatelessWidget {
             ),
             SizedBox(height: 10.rs(context)),
             Text(
-              'تاريخ الطلب: ${_formatDate(order.orderDate)}',
+              'تاريخ الطلب: ${_formatDate(order.createdAt.toString())}',
               style: context.cairo(
                 size: 14,
                 weight: AppTypography.semiBold,

@@ -14,13 +14,7 @@ class AppAssets {
 
   static const String logoImage = 'assets/images/png/logo_image.png';
 
-  static const String test1 = 'assets/images/png/test1.jpg';
 
-  static const String test2 = 'assets/images/png/test2.jpg';
-
-  static const String test3 = 'assets/images/png/test3.jpg';
-
-  static const String test4 = 'assets/images/png/test4.jpg';
 
   static const String bannar1 = 'assets/images/png/bannar1.jpg';
 

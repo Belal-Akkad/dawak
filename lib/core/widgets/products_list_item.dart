@@ -1,5 +1,6 @@
 import 'package:dawak/core/extentions/responsive_size_extension.dart';
 import 'package:dawak/core/extentions/text_style_extension.dart';
+import 'package:dawak/core/functions/format_price.dart';
 import 'package:dawak/core/routes/app_routes.dart';
 import 'package:dawak/core/theme/app_colors.dart';
 import 'package:dawak/core/widgets/cart_availablility_badge.dart';
@@ -65,7 +66,7 @@ class ProductsListItem extends StatelessWidget {
 
                   SizedBox(height: 6.rs(context)),
                   Text(
-                    '${product.price} ل.س',
+                    '${formatPrice(product.price)} ل.س',
                     style: context.cairo(
                       size: 14,
                       weight: FontWeight.w700,

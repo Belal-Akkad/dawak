@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class CartProductList extends StatelessWidget {
   final List<ProductEntity> items;
   final int Function(ProductEntity product) quantityFor;
-  final int Function(ProductEntity product) productTotal;
+  final double Function(ProductEntity product) productTotal;
   final void Function(ProductEntity product) onDelete;
   final void Function(ProductEntity product, int newQuantity) onUpdateQuantity;
 
@@ -22,7 +22,7 @@ class CartProductList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      physics: const BouncingScrollPhysics(),
+      physics: const AlwaysScrollableScrollPhysics(),
       padding: EdgeInsets.zero,
       itemCount: items.length,
       separatorBuilder: (_, _) => SizedBox(height: 10.rs(context)),
@@ -36,7 +36,7 @@ class CartProductList extends StatelessWidget {
           product: product,
           quantity: quantity,
           availableStock: product.quantity,
-          unitPrice: product.price.toInt(),
+          unitPrice: product.price,
           totalPrice: total,
           requiresPrescription: product.isRequiredPrescription,
           onIncrease: () => onUpdateQuantity(product, quantity + 1),

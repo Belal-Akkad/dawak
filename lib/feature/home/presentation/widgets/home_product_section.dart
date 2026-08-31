@@ -92,7 +92,7 @@ class HomeProductSection extends StatelessWidget {
             SizedBox(
               height: 290.rs(context),
               child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
+                physics: const AlwaysScrollableScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemCount: display.length,
                 itemBuilder: (context, index) {

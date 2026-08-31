@@ -13,8 +13,8 @@ class CartProductCard extends StatefulWidget {
   final ProductEntity product;
   final int quantity;
   final int availableStock;
-  final int unitPrice;
-  final int totalPrice;
+  final double unitPrice;
+  final double totalPrice;
   final bool requiresPrescription;
   final VoidCallback onIncrease;
   final VoidCallback onDecrease;
@@ -38,7 +38,7 @@ class CartProductCard extends StatefulWidget {
 }
 
 class _CartProductCardState extends State<CartProductCard> {
-  int _lastTotalPrice = 0;
+  double _lastTotalPrice = 0;
 
   @override
   void initState() {

@@ -15,7 +15,7 @@ import 'package:dawak/feature/main/presentation/pages/main_page.dart';
 
 import 'package:dawak/feature/onboarding/presentation/pages/onboarding_page.dart';
 
-import 'package:dawak/feature/order/data/order_cubit.dart';
+import 'package:dawak/feature/order/presentation/manager/get_order_details_cubit/get_order_details_cubit.dart';
 import 'package:dawak/feature/order/presentation/pages/order_details_page.dart';
 
 import 'package:dawak/feature/product_details/presentation/pages/product_details_page.dart';
@@ -166,10 +166,13 @@ abstract final class AppRouter {
       // =========================
 
       case AppRoutes.orderDetails:
-        final order = settings.arguments as OrderModel;
+        final orderId = settings.arguments as int;
 
         return _fadeRoute<void>(
-          page: OrderDetailsPage(order: order),
+          page: BlocProvider(
+            create: (_) => sl<GetOrderDetailsCubit>()..getOrderDetails(orderId),
+            child: OrderDetailsPage(orderId: orderId),
+          ),
           settings: settings,
         );
 

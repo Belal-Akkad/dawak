@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class CartFooterActions extends StatelessWidget {
   final int differentProductsCount;
-  final int totalPrice;
+  final double totalPrice;
   final VoidCallback onConfirmOrder;
   final VoidCallback onClearCart;
 

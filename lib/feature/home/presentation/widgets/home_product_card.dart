@@ -1,5 +1,6 @@
 import 'package:dawak/core/extentions/responsive_size_extension.dart';
 import 'package:dawak/core/extentions/text_style_extension.dart';
+import 'package:dawak/core/functions/format_price.dart';
 import 'package:dawak/core/routes/app_routes.dart';
 import 'package:dawak/core/theme/typo_graphy/app_typo_graphy.dart';
 import 'package:dawak/core/widgets/cart_availablility_badge.dart';
@@ -98,7 +99,7 @@ class HomeProductCard extends StatelessWidget {
                     SizedBox(height: 6.rs(context)),
 
                     Text(
-                      '${product.price} ل.س',
+                      '${formatPrice(product.price)} ل.س',
                       style: context.cairo(
                         size: 10,
                         color: AppColors.neutral900,

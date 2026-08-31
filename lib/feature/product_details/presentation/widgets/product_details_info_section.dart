@@ -1,3 +1,4 @@
+import 'package:dawak/core/functions/format_price.dart';
 import 'package:dawak/core/widgets/cart_availablility_badge.dart';
 import 'package:dawak/feature/product_details/domain/entity/product_details_entity.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class ProductDetailsInfoSection extends StatelessWidget {
           SizedBox(height: 12.rs(context)),
 
           Text(
-            '${productDetails.product.price} ل.س',
+            '${formatPrice(productDetails.product.price)} ل.س',
             style: context.cairo(
               size: 16,
               weight: AppTypography.bold,

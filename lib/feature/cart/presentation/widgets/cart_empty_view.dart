@@ -1,7 +1,6 @@
 import 'package:dawak/core/constants/app_assets.dart';
 import 'package:dawak/core/extentions/responsive_size_extension.dart';
 import 'package:dawak/core/extentions/text_style_extension.dart';
-import 'package:dawak/core/routes/app_routes.dart';
 import 'package:dawak/core/theme/app_colors.dart';
 import 'package:dawak/core/theme/typo_graphy/app_typo_graphy.dart';
 import 'package:dawak/core/widgets/custom_button.dart';
@@ -48,9 +47,7 @@ class CartEmptyView extends StatelessWidget {
         SizedBox(height: 18.rs(context)),
         CustomButton(
           onPressed: () {
-            Navigator.of(
-              context,
-            ).pushNamedAndRemoveUntil(AppRoutes.home, (route) => false);
+            Navigator.pop(context);
           },
           width: 220.rs(context),
           color: AppColors.primary600,

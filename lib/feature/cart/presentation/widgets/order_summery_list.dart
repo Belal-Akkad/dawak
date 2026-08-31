@@ -1,5 +1,6 @@
 import 'package:dawak/core/extentions/responsive_size_extension.dart';
 import 'package:dawak/core/extentions/text_style_extension.dart';
+import 'package:dawak/core/functions/format_price.dart';
 import 'package:dawak/core/manager/cart_cubit/cart_cubit.dart';
 import 'package:dawak/core/theme/app_colors.dart';
 import 'package:dawak/core/theme/typo_graphy/app_typo_graphy.dart';
@@ -38,14 +39,14 @@ class OrderSummaryList extends StatelessWidget {
                     color: AppColors.neutral600,
                   ),
                 ),
-                // Text(
-                //   '${cartState.quantityFor(product.id)} × ${product.unitPrice} = ${cartState.productTotal(product)} ل.س',
-                //   style: context.cairo(
-                //     size: 14,
-                //     weight: AppTypography.medium,
-                //     color: AppColors.neutral600,
-                //   ),
-                // ),
+                Text(
+                  '${cartState.quantityFor(product.id)} × ${formatPrice(product.price)} = ${formatPrice(cartState.productTotal(product))} ل.س',
+                  style: context.cairo(
+                    size: 14,
+                    weight: AppTypography.medium,
+                    color: AppColors.neutral600,
+                  ),
+                ),
               ],
             ),
             SizedBox(height: 8.rs(context)),
@@ -64,7 +65,7 @@ class OrderSummaryList extends StatelessWidget {
                 ),
               ),
               Text(
-                '$medicinesSubtotal ل.س',
+                '${formatPrice(medicinesSubtotal)} ل.س',
                 style: context.cairo(
                   size: 16,
                   weight: AppTypography.bold,
@@ -111,7 +112,7 @@ class OrderSummaryList extends StatelessWidget {
                 ),
               ),
               Text(
-                '$grandTotal ل.س',
+                '${formatPrice(grandTotal)} ل.س',
                 style: context.cairo(
                   size: 20,
                   weight: AppTypography.bold,

@@ -1,5 +1,6 @@
 import 'package:dawak/core/extentions/responsive_size_extension.dart';
 import 'package:dawak/core/extentions/text_style_extension.dart';
+import 'package:dawak/core/functions/format_price.dart';
 import 'package:dawak/core/theme/app_colors.dart';
 import 'package:dawak/core/theme/typo_graphy/app_typo_graphy.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'package:flutter/material.dart';
 class CartProductInfo extends StatelessWidget {
   final String productName;
   final String productDescription;
-  final int unitPrice;
+  final double unitPrice;
   final String prescriptionText;
   final bool requiresPrescription;
 
@@ -48,7 +49,7 @@ class CartProductInfo extends StatelessWidget {
         ),
         SizedBox(height: 4.rs(context)),
         Text(
-          '$unitPrice ل.س',
+          '${formatPrice(unitPrice)} ل.س',
           style: context.cairo(
             size: 12,
             weight: AppTypography.bold,

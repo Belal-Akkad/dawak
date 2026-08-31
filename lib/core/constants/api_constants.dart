@@ -39,4 +39,12 @@ class ApiConstants {
   // ==================== Home ====================
 
   static const String homeEndPoint = '/home';
+
+  // ==================== Orders ====================
+
+  static const String addOrderEndPoint = '/orders';
+
+  static const String ordersEndPoint = '/orders';
+
+  static String orderDetailsEndPoint(int orderId) => '/orders/$orderId';
 }

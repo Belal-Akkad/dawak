@@ -2,6 +2,7 @@ import 'package:dawak/core/services/service_locator.dart';
 import 'package:dawak/core/theme/app_colors.dart';
 import 'package:dawak/feature/categories/presentation/manager/categories_cubit/categories_cubit.dart';
 import 'package:dawak/feature/categories/presentation/pages/category_page.dart';
+import 'package:dawak/feature/order/presentation/manager/get_orders_cubit/get_orders_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dawak/core/manager/bottom_nav_cubit/bottom_nav_cubit.dart';
@@ -24,55 +25,40 @@ class MainPage extends StatelessWidget {
   }
 }
 
-class MainShell extends StatefulWidget {
+
+class MainShell extends StatelessWidget {
   const MainShell({super.key});
 
   @override
-  State<MainShell> createState() => _MainShellState();
-}
-
-class _MainShellState extends State<MainShell> {
-  final List<Widget?> pages = [const HomePage(), null, null, null];
-
-  void loadPage(int index) {
-    if (pages[index] != null) return;
-
-    switch (index) {
-      case 1:
-        pages[index] = BlocProvider(
-          create: (_) => sl<CategoriesCubit>(),
-          child: const CategoryPage(),
-        );
-
-        break;
-
-      case 2:
-        pages[index] = const OrdersPage();
-        break;
-
-      case 3:
-        pages[index] = const ProfilePage();
-        break;
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final pages = [
+      const HomePage(),
+
+      BlocProvider(
+        create: (_) => sl<CategoriesCubit>(),
+        child: const CategoryPage(),
+      ),
+
+      BlocProvider(
+        create: (_) => sl<GetOrdersCubit>()..getOrders(),
+        child: const OrdersPage(),
+      ),
+
+      const ProfilePage(),
+    ];
+
     return BlocBuilder<BottomNavCubit, int>(
       builder: (context, index) {
-        loadPage(index);
-
         return Scaffold(
           backgroundColor: AppColors.primary50,
 
           body: IndexedStack(
             index: index,
-            children: pages.map((page) => page ?? const SizedBox()).toList(),
+            children: pages,
           ),
 
           bottomNavigationBar: AppBottomNav(
             currentIndex: index,
-
             onTap: (i) {
               context.read<BottomNavCubit>().select(i);
             },

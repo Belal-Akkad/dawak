@@ -37,7 +37,7 @@ class ProductDetailsFooter extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 12.rs(context)),
               borderRadius: 8.rs(context),
               onPressed: () {
-                // context.read<CartCubit>().toggle(product);
+                context.read<CartCubit>().toggle(productDetails.product);
               },
               child: Text(
                 textAlign: TextAlign.center,
