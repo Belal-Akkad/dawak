@@ -25,9 +25,16 @@ class MainPage extends StatelessWidget {
   }
 }
 
-
 class MainShell extends StatelessWidget {
   const MainShell({super.key});
+
+  Future<bool> _onBackPressed(BuildContext context, int currentIndex) async {
+    if (currentIndex != 0) {
+      context.read<BottomNavCubit>().select(0);
+      return false;
+    }
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,19 +56,27 @@ class MainShell extends StatelessWidget {
 
     return BlocBuilder<BottomNavCubit, int>(
       builder: (context, index) {
-        return Scaffold(
-          backgroundColor: AppColors.primary50,
+        return PopScope(
+          canPop: index == 0, 
+          onPopInvoked: (didPop) async {
+            if (!didPop) {
+              final result = await _onBackPressed(context, index);
+              if (result && context.mounted) {
+                Navigator.of(context).pop();
+              }
+            }
+          },
+          child: Scaffold(
+            backgroundColor: AppColors.primary50,
 
-          body: IndexedStack(
-            index: index,
-            children: pages,
-          ),
+            body: IndexedStack(index: index, children: pages),
 
-          bottomNavigationBar: AppBottomNav(
-            currentIndex: index,
-            onTap: (i) {
-              context.read<BottomNavCubit>().select(i);
-            },
+            bottomNavigationBar: AppBottomNav(
+              currentIndex: index,
+              onTap: (i) {
+                context.read<BottomNavCubit>().select(i);
+              },
+            ),
           ),
         );
       },

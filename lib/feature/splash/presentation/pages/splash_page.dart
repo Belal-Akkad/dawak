@@ -48,7 +48,6 @@ class _SplashPageState extends State<SplashPage> {
 
     if (accessToken != null && accessToken.isNotEmpty) {
 
-      log(accessToken.toString());
       Navigator.of(context).pushReplacementNamed(AppRoutes.home);
       return;
     }
